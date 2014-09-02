@@ -34,4 +34,4 @@ Il peut être en effet optimisé (si vous voulez vous y mettre).
 
 Deja, toutes les connexions se font en synchrone, l'une après l'autre. Ce qui n'est pas à chaque fois nécessaire.
 Ensuite, sur la technique, je n'ai pas réussi à récupérer les cookies de ce domaine avec de l'ajax. Peut être trouverai-je un moyen car ce serait bien plus efficace.
-En attendant, la connexion se fait dans une iframe qui se charge et décharge en arrière plan dans le background.html, et des "content-script" (log1, log2, log3.js) qui remplissent et valident automatiquement les formulaires, pour passer à la page suivante etc.. 
+En attendant, la connexion se fait dans une iframe qui se charge et décharge en arrière plan dans le background.html, et des "content-script" (log1, log2, log3.js) qui vont de page en page pour valider les connexions sur les differents sites INSA.
