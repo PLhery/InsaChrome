@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>INSAChrome - configuration</title>
+	<style>
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
+}
+
+
+
+		.center {
+			font-family: 'roboto';
+			text-align: center;
+			width:600px;
+			margin:0 auto;
+			font-size:20px;
+			dstext-decoration: underline;
+			
+		}
+		
+		.infos {
+			display:none;
+		}
+		#plusinfos {
+			color:#4CA6FF;
+			text-decoration:none;
+			border-bottom: 1px solid #4CA6FF;
+		}
+		
+		input, select {
+		font-family: 'roboto';
+		font-size:15px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="center" id="center">
+		<p><span style="border-bottom: 1px solid black;font-size:50px;">Parametrez InsaChrome</span><br/></p>
+		<p style="text-align:right;"><a href="#" id="plusinfos">Indications sur les options</a></p>
+		<p class="infos">Pour pouvoir vous connecter à Insa-invité, cipcnet et tout autre site INSA, il me faut vos identifiants.<br/> Ne vous inquiétez-pas, ils sont stockés sur votre ordinateur, et ne sont transmis qu'aux sites INSA</p>
+		<br/>
+		
+		<hr style="width:300px;" class="infos"/>
+		<label for="nom">Pseudo INSA :</label> <input type="text" name="nom" id="nom"/><br/>
+<label for="passe">Mot de passe :</label> <input type="password" name="passe" id="passe"/><br/>
+<hr style="width:300px;" class="infos"/>
+<br/>
+<p class="infos">Ensuite, sachez que, dès que la page de connexion d'INSA-invité apparaîtra, (et que vous aurez passé l'éventuelle erreur), le plugin remplira tout seul le formulaire.<br/>
+De plus, si aucune connexion n'a été faite par le plugin depuis deux heures, il se reconnectera aux sites INSA.<br/>
+Vous pouvez désactiver l'une de ces fonctions ici :</p>
+<br/>
+<hr style="width:300px;" class="infos"/>
+<input type="checkbox" name="insainviteauto" id="insainviteauto"><label for="insainviteauto">Connexion automatique à insa-invité</label><br/>
+<input type="checkbox" name="reseauinsaauto" id="reseauinsaauto"><label for="reseauinsaauto">Connexion automatique aux sites insa</label></input><br/>
+<hr style="width:300px;" class="infos"/>
+<br/>
+<p class="infos">Finalement, sachez qu'en tapant dans la barre d'adresse "i", puis espace, puis une lettre, une liste de choix vous sera proposé. Parmis elle l'emploi du temps. Essayez-donc les deux formats possibles.</p>
+<br/>
+<hr style="width:300px;" class="infos"/>
+<label for="formatemploi">Format de l'emploi du temps :</label><select name="formatemploi" id="formatemploi"><option value="html">Normal (HTML)</option> <option value="pdf" selected>PDF</option></select>
+<hr style="width:300px;" class="infos"/>
+<br/>
+<img src="batman.gif" style="width:100px;margin:0 auto;" class="infos"/>
+	</div>
+	
+	<script type='text/javascript' src='aes.js'></script>
+		<script src="options.js">
+	</script>
+	
+</body>
+</html>

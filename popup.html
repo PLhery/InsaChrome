@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+
+	<style>
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
+}
+
+body {
+min-width:100px;
+}
+		.connect
+		{
+		font-family: 'Roboto';
+		font-size:20px;
+			margin:0;
+		}
+				.infos
+		{
+		font-family: 'Roboto';
+		font-size:14px;
+			margin:0;
+			text-align:center;
+		}
+		
+		.reco-balance {
+			font-size: 18px;
+			color: white;
+			background-color: #000;
+			padding: 1pt 5pt;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="informations">
+		<p class="infos" id = "infos">Mails non lus :<br/><span class="reco-balance" id="mails">... / ...</span></p><br/>
+		<p class="infos" id = "infos">Solde :<br/><span class="reco-balance"  id="solde">... €</span></p>
+		<p class="infos" id = "infos">Solde forfait :<br/><span class="reco-balance"  id="soldeforfait">... €</span></p><br/>
+		<!--p class = "infos"><span class="reco-balance" id="admission" style="background-color:green">...???</span></p><br/     (admission)-->
+		<p class="infos" id = "infos">Connecté en tant que :</p>
+		<table>
+			<tr>
+			  <td><img id="photo" style="width:45px;"/></td>
+			  <td class="infos" id="nom">...</td> 
+			</tr>
+		</table>
+	</div>	
+	
+	
+	<p class="connect" id = "connect" style="display:none;">Connexion<br/><i id="service">insa-invité</i></p>
+	<script src="popup.js">	</script>
+</body>
+</html>
