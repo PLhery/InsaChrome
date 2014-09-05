@@ -211,6 +211,14 @@ function deleteFrames() {
 				if(key=="connect" & changes["connect"].newValue =="ok") {
 					deleteFrames();
 				}
+				if(key=="connect" & changes["connect"].newValue =="zimbra") {
+					//deleteFrames();
+					 $.get('https://login.insa-lyon.fr/cas/login?service=https%3A%2F%2Flogin.insa-lyon.fr%2Fzimbra%2Flogin%3Fversion%3Dpreferred', function (response) {
+									//on test si c'est bien zimbra
+					}).fail(function() {
+						chrome.storage.local.set({connect: "nope"});
+					});
+				}
 			}
       });
 	  
