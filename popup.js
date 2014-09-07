@@ -12,9 +12,34 @@ if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage[
 		
 		//chrome.runtime.sendMessage({method: "connect"});
 		chrome.runtime.sendMessage({method: "popup"});
-
+		
+		chrome.storage.local.set({services: "aucun"}); //Aucun services n'est tické.
 		chrome.storage.onChanged.addListener(function(changes, namespace) {
 			for (key in changes) {
+				if(key=="services" && changes["services"].newValue != "aucun") { //Si un service doit être tické
+					document.getElementById('ch'+changes["services"].newValue).checked =true; //on le ticke
+					
+					if($('input:checked').length == $('input').length) { //si tous les services sont tickés
+					
+						$("#services").slideUp()	//On lance l'animation
+						$("#ok").slideDown().css("opacity",1).css("font-size","80px").css("width","150px");;
+						$("body").css("background","#92C060");
+						
+						setTimeout(function(){
+							$("#ok").slideUp();
+							$("#informations").slideDown();
+							$("body").css("background","#FEFEFE");
+						}, 1500);
+						setTimeout(function(){
+							$("body").css("background","url(popup_background.png)");
+						}, 2200);
+						
+					}
+				}
+				
+				
+				
+				
 				if(key=="connect" && changes["connect"].newValue != "fini") {
 					chrome.storage.local.set({connect: "fini"});
 					

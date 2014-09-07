@@ -51,7 +51,7 @@ chrome.webRequest.onHeadersReceived.addListener(
 	else if(request.method == "autoconnect" & localStorage['reseauinsaauto']=="true" & (!localStorage['lastConnect'] | localStorage['lastConnect']< (new Date().getTime())-1000*60*60*2) & !(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom'])) {
 			//chrome.windows.create({url:"popup.html", width:141, height:104, focused:false, type:"panel"});
 	} else if(request.method == "popup") {
-	
+	/*
 				var solde1=false;
 				var solde2=false;
 				var infomails=false;
@@ -156,12 +156,110 @@ chrome.webRequest.onHeadersReceived.addListener(
 					infonom,
 					admission
 					)});
-				}
-
+				}*/
+				
+		chrome.storage.local.set({connect: "debut"});
+		if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']) { //On vérifie si on a bien un username/pass
+		error("Merci de rentrer votre identifiant/mot de passe dans les <a href='options.html' style='color:#4CA6FF;' target='_blank'>options</a>. (#006)");
+		}
+		connectCAS(); //On lance la connexion à CAS (et aux autres services).
+				
 	}
 	else
       sendResponse({});
 });
+
+
+function connectCAS()  {
+
+	//On se connecte à INSA CAS
+	chrome.cookies.remove({"url": "https://login.insa-lyon.fr/cas/", "name": "JSESSIONID"}); //on enlève le cookie JSESSIONID si déja présent
+
+	$.get("https://login.insa-lyon.fr/cas/login").done(function (response) { //On génère un nouveau JSESSIONID et le lt associé
+			//On vérifie si on est bien sur la bonne page
+			 chrome.cookies.get({"url": "https://login.insa-lyon.fr/cas/", "name": "JSESSIONID" }, function(cookie) { //on lit le cookie jsessionid
+			
+				$.post( "https://login.insa-lyon.fr/cas/login;"+cookie.value, { username: localStorage['nom'], password: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), lt : $('<div>' + response + '</div>').find("input[name='lt']").val(), execution: "e1s1", _eventId: "submit" }) //On envoie les infos de connection
+				.done(function( data ) { //On vérifie si on est bien connecté
+				
+					if($('<div>' + data + '</div>').find("p").first().text() == "Vous vous êtes authentifié(e) auprès du Service Central d'Authentification.") { //Si on est bien connecté
+					
+									chrome.storage.local.set({services: "CAS"}); //On tick le service CAS sur la popup
+									connectMoodle();//On se connecte à Moodle
+									connectCIPC();//On se connecte à CIPCnet
+									connectZimbra();//On se connecte à Zimbra
+									
+					}else if($('<div>' + data + '</div>').find("#msg").text()) { //Sinon, s'il y a un message
+					
+						if($('<div>' + data + '</div>').find("#msg").text()=="Mauvais identifiant / mot de passe.")//Si c'est un problème de mot de passe
+							error("Une erreur est survenue (#003) : Vos identifiants semblent incorrects. Verrifiez-les dans les <a href='options.html' style='color:#4CA6FF;' target='_blank'>options</a>.")
+						else
+							error("Une erreur CAS (#004) est survenue - Message : "+$('<div>' + data + '</div>').find("#msg").text());
+					}else //Si il y a une erreur et pas de message
+						error("Une erreur inconnue (#005) est survenue lors de votre connexion à CAS.");
+					
+				}).fail(function() {
+					error("Un problème est survenu (#002), êtes-vous connecté à internet ?");
+				});
+			});				
+	}).fail(function() {
+		error("Un problème est survenu (#001), êtes-vous connecté à internet ?");
+	})
+
+}
+
+function connectCIPC() {
+
+	//On se connecte à CIPCNET
+	$.get("https://login.insa-lyon.fr/cas/login?service=http%3A%2F%2Fcipcnet.insa-lyon.fr%2Flogin_form").done(function (response) { //On demande la page de connexion
+	
+		if($('<div>' + response + '</div>').find("#user-name").length) //Si le nom d'utilisateur est bien affiché sur moodle (donc il est connecté)
+			chrome.storage.local.set({services: "CIPC"}); //On tick le service CIPC sur la popup
+		else
+			error("Une erreur inconnue (#008) est survenue lors de votre connexion à CIPCNet.");
+		
+	}).fail(function() {
+		error("Un problème est survenu (#007), êtes-vous connecté à internet ?");
+	});
+
+}
+
+function connectMoodle() {
+
+	//On se connecte à Moodle
+	$.get("http://cipcnet.insa-lyon.fr/moodle.195/login/index.php").done(function (response) { //On demande la page de connexion
+		
+		if($('<div>' + response + '</div>').find("#portal-personaltools a:eq(1)").text() == "Déconnexion") //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
+			chrome.storage.local.set({services: "Moodle"}); //On tick le service Moodle sur la popup
+		else
+			error("Une erreur inconnue (#010) est survenue lors de votre connexion au Moodle.");
+		
+	}).fail(function() {
+		error("Un problème est survenu (#009), êtes-vous connecté à internet ?");
+	});
+
+}
+
+function connectZimbra() {
+
+	//On se connecte à Zimbra
+	$.get("https://login.insa-lyon.fr/zimbra/login?version=standard").done(function (response) { //On demande la page de connexion
+		console.log(response);
+		if($('<div>' + response + '</div>').find(".skin_link:eq(1)").text() == "Se déconnecter") //Si le bouton déconnexion est present sur Zimbra (donc il est connecté)
+			chrome.storage.local.set({services: "Zimbra"}); //On tick le service Zimbra sur la popup
+		else
+			error("Une erreur inconnue (#012) est survenue lors de votre connexion à Zimbra.");
+		
+	}).fail(function() {
+		error("Un problème est survenu (#011), êtes-vous connecté à internet ?");
+	});
+
+}
+
+
+function error(error) {
+	chrome.storage.local.set({connect: error});
+}
 
 function MajNom(nom){
 nom = nom.toLowerCase();

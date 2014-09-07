@@ -16,36 +16,7 @@
       "matches": [ "*://securelogin.arubanetworks.com/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/CP_FILAIRE/centre.htm" ]
    }, {
       "js": [ "autoconnect.js" ],
-      "matches": [ "*://*.insa-lyon.fr/*" ]
-   }, {
-      "all_frames": true,
-      "js": [ "login1.js" ],
-      "matches": [ "https://login.insa-lyon.fr/cas/login?service=http%3A//cipcnet.insa-lyon.fr/scol/php/ok/" ]
-   }, {
-      "all_frames": true,
-      "js": [ "log1.js" ],
-      "matches": [ "http://cipcnet.insa-lyon.fr/scol/php/ok/*" ],
-      "run_at": "document_start"
-   }, {
-      "all_frames": true,
-      "js": [ "log2.js" ],
-      "matches": [ "http://cipcnet.insa-lyon.fr/login2/*" ],
-      "run_at": "document_start"
-   }, {
-      "all_frames": true,
-      "js": [ "log3.js" ],
-      "matches": [ "http://cipcnet.insa-lyon.fr/moodle.195/" ],
-      "run_at": "document_start"
-   }, {
-      "all_frames": true,
-      "js": [ "log4.js" ],
-      "matches": [ "https://zmail.insa-lyon.fr/zimbra/?auth=qp" ],
-      "run_at": "document_start"
-   }, {
-      "all_frames": true,
-      "js": [ "log5.js" ],
-      "matches": [ "https://planete.insa-lyon.fr/uPortal/f/u*" ],
-      "run_at": "document_start"
+      "matches": [ "*://*.indsa-lyon.fr/*" ]
    }, {
       "js": [ "emploitempsclick.js" ],
       "matches": [ "http://cipcnet.insa-lyon.fr/scol/edt_form?insachromeclick" ]
@@ -63,5 +34,5 @@
    },
    "options_page": "options.html",
    "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs", "webRequest", "webRequestBlocking" ],
-   "version": "3"
+   "version": "3.0.1"
 }

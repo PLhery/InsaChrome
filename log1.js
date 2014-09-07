@@ -1,2 +1,0 @@
-chrome.storage.local.set({connect: "cipcnet"});
-document.location.href="https://login.insa-lyon.fr:443/cas/login?service=http%3A%2F%2Fcipcnet.insa-lyon.fr%2Flogin_form%3Fform.submitted%3D1%26cas_came_from%3Dlogin2%2F";

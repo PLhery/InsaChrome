@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-
+<link rel="stylesheet" type="text/css" href="fontello/css/fontello-embedded.css">
 	<style>
 @font-face {
   font-family: 'Roboto';
@@ -10,14 +10,24 @@
   src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat-Regular'), url(Montserrat.woff2) format('woff2');
+}
+
 body {
-min-width:100px;
+min-width:150px;
+background:url(popup_background.png);
+  transition: background 1s;
 }
 		.connect
 		{
 		font-family: 'Roboto';
 		font-size:20px;
 			margin:0;
+		width:200px;
 		}
 				.infos
 		{
@@ -34,11 +44,65 @@ min-width:100px;
 			padding: 1pt 5pt;
 		}
 
-	</style>
+
+		#ok{
+		height:100px;
+		font-family: fontello;
+		font-size:20px;
+		color:white;
+		text-align:center;
+		line-height: 100px;
+		width:200px;
+		opacity:0;
+		transition: opacity 3s, font-size 1s,width 2s;
+		}
+
+
+/*checkbox animés - inspiré de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
+
+label {
+	position: relative;
+	padding-left: 30px;
+	font-size: 14px;
+	cursor: pointer;
+	font-family: 'Montserrat';
+}
+label:before, label:after {
+	font-family: fontello;
+	font-size: 21px;
+	/*absolutely positioned*/
+	position: absolute; top: 0; left: 0;
+}
+label:before {
+	content: '\f096'; /*unchecked*/
+}
+label:after {
+	content: '\e801'; /*checked*/
+	max-width: 0;
+	opacity: 0.3;
+	overflow: hidden;
+	transition: all 0.4s;
+}
+input[type="checkbox"] {
+	display: none;
+}
+input[type="checkbox"]:checked + label:after {
+	max-width: 25px;
+	opacity: 1; /*for fade in effect*/
+}
+
+#chInvite+label:before, #chInvite+label:after {color: hsl(0, 45%, 40%);}
+#chCAS+label:before, #chCAS+label:after {color: hsl(60, 45%, 40%);}
+#chCIPC+label:before, #chCIPC+label:after {color: hsl(120, 45%, 40%);}
+#chMoodle+label:before, #chMoodle+label:after {color: hsl(180, 45%, 40%);}
+#chZimbra+label:before, #chZimbra+label:after {color: hsl(240, 45%, 40%);}
+#chPlanete+label:before, #chPlanete+label:after {color: hsl(300, 45%, 40%);}
+</style>
+
 </head>
 
 <body>
-	<div id="informations">
+	<div id="informations" style="display:none;">
 		<p class="infos" id = "infos">Mails non lus :<br/><span class="reco-balance" id="mails">... / ...</span></p><br/>
 		<p class="infos" id = "infos">Solde :<br/><span class="reco-balance"  id="solde">... €</span></p>
 		<p class="infos" id = "infos">Solde forfait :<br/><span class="reco-balance"  id="soldeforfait">... €</span></p><br/>
@@ -52,8 +116,33 @@ min-width:100px;
 		</table>
 	</div>	
 	
+	<div id="services">
+	<p class="connect" id = "connect">Connexion à..</p>
 	
-	<p class="connect" id = "connect" style="display:none;">Connexion<br/><i id="service">insa-invité</i></p>
+		<br/>
+		<input type="checkbox" checked disabled id="chInvite" />
+		<label>Insa-Invité</label>
+		<br/>
+		<input type="checkbox" id="chCAS" />
+		<label>Insa CAS</label>
+		<br/>
+		<input type="checkbox" id="chCIPC" />
+		<label>CIPCNet</label>
+		<br/>
+		<input type="checkbox" id="chMoodle" />
+		<label>Moodle</label>
+		<br/>
+		<input type="checkbox" id="chZimbra" />
+		<label>Zimbra</label>
+		<br/>
+		<input type="checkbox" checked id="chPlanete" />
+		<label>Planète</label>
+	</div>
+	<div id="ok" style="display:none;">
+	&#59392;
+	</div>
+	<script src="jquery-2.1.1.min.js"></script>
 	<script src="popup.js">	</script>
+	
 </body>
 </html>
