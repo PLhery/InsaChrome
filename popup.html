@@ -19,8 +19,11 @@
 
 body {
 min-width:150px;
-background:url(popup_background.png);
-  transition: background 1s;
+//background:url(popup_background.png);
+backgtround:orange;
+  transition: background 1s, margin 0.5s;
+  z-index: -5;
+  margin:0;
 }
 		.connect
 		{
@@ -46,17 +49,43 @@ background:url(popup_background.png);
 
 
 		#ok{
-		height:100px;
-		font-family: fontello;
-		font-size:20px;
-		color:white;
-		text-align:center;
-		line-height: 100px;
-		width:200px;
-		opacity:0;
-		transition: opacity 3s, font-size 1s,width 2s;
+			height:100px;
+			font-family: fontello;
+			font-size:20px;
+			color:white;
+			text-align:center;
+			line-height: 100px;
+			width:200px;
+			opacity:0;
+			transition: opacity 3s, font-size 1s,width 2s;
 		}
-
+		
+		#wait{
+			height:100px;
+			line-height: 100px;
+			font-family: Montserrat;
+			font-size:20px;
+			color:white;
+			text-align:center;
+			width:200px;
+			opacity:1;
+			overflow: hidden;
+			position: relative;
+			background:orange;
+		}
+		#erreur{
+			min-height:100px;
+			font-family: Roboto;
+			font-size:15px;
+			color:white;
+			text-align:center;
+			width:200px;
+			opacity:1;
+		}
+.circle {
+    position: absolute;
+    z-index: -1;
+}
 
 /*checkbox animés - inspiré de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
 
@@ -116,7 +145,7 @@ input[type="checkbox"]:checked + label:after {
 		</table>
 	</div>	
 	
-	<div id="services">
+	<div id="services" style="display:none;">
 	<p class="connect" id = "connect">Connexion à..</p>
 	
 		<br/>
@@ -140,6 +169,11 @@ input[type="checkbox"]:checked + label:after {
 	</div>
 	<div id="ok" style="display:none;">
 	&#59392;
+	</div>
+	<div id="wait">
+Chargement..
+	</div>
+	<div id="erreur" style="display:none;">
 	</div>
 	<script src="jquery-2.1.1.min.js"></script>
 	<script src="popup.js">	</script>

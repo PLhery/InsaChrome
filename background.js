@@ -50,8 +50,16 @@ chrome.webRequest.onHeadersReceived.addListener(
 	}
 	else if(request.method == "autoconnect" & localStorage['reseauinsaauto']=="true" & (!localStorage['lastConnect'] | localStorage['lastConnect']< (new Date().getTime())-1000*60*60*2) & !(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom'])) {
 			//chrome.windows.create({url:"popup.html", width:141, height:104, focused:false, type:"panel"});
-	} else if(request.method == "popup") {
-	/*
+	} else if(request.method == "popupStart") {
+	
+	getInformations();
+	
+	}
+	else
+      sendResponse({});
+});
+
+function getInformations() { //Le but est de récupérer toutes les informations, et que si une ne va pas, on lance la connexion
 				var solde1=false;
 				var solde2=false;
 				var infomails=false;
@@ -144,32 +152,37 @@ chrome.webRequest.onHeadersReceived.addListener(
 								connect();
 							}
 						  });
-				
-				
-				function envoiinfos(infomails, solde1, solde2, infonom, infoto, admission) {
-					chrome.storage.local.set({infos: new Array()});
-					chrome.storage.local.set({infos: new Array(
-					infomails,
-					solde1,
-					solde2,
-					infoto,
-					infonom,
-					admission
-					)});
-				}*/
-				
-		chrome.storage.local.set({connect: "debut"});
-		if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']) { //On vérifie si on a bien un username/pass
-		error("Merci de rentrer votre identifiant/mot de passe dans les <a href='options.html' style='color:#4CA6FF;' target='_blank'>options</a>. (#006)");
-		}
-		connectCAS(); //On lance la connexion à CAS (et aux autres services).
-				
+
 	}
-	else
-      sendResponse({});
-});
+	
+	function envoiinfos(infomails, solde1, solde2, infonom, infoto, admission) {
+		chrome.storage.local.set({infos: new Array()});
+		chrome.storage.local.set({infos: new Array(
+		infomails,
+		solde1,
+		solde2,
+		infoto,
+		infonom,
+		admission
+		)});
+	}
+				
+function connect() {
+	chrome.storage.local.get('state', function (result) { //On récupère l'etat de la popup
+        if(result.state=="connecté") //Si il est déja sensé être connecté
+			error("Une erreur est survenue (#013) : <br/> Impossible de récupérer vos informations. Un site INSA a peut être un problème/cette extension n'est peut etre pas à jour !");
+		else {//sinon
+			chrome.storage.local.set({state: "connexion"});  //On passe la popup à l'etat de connexion
+	
+			if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']) //On vérifie si on a bien un username/pass
+				error("Merci de rentrer votre identifiant/mot de passe dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>. (#006)");
+				
+			//On lance la connexion
+			connectCAS();
+	}
+    });
 
-
+}
 function connectCAS()  {
 
 	//On se connecte à INSA CAS
@@ -192,18 +205,18 @@ function connectCAS()  {
 					}else if($('<div>' + data + '</div>').find("#msg").text()) { //Sinon, s'il y a un message
 					
 						if($('<div>' + data + '</div>').find("#msg").text()=="Mauvais identifiant / mot de passe.")//Si c'est un problème de mot de passe
-							error("Une erreur est survenue (#003) : Vos identifiants semblent incorrects. Verrifiez-les dans les <a href='options.html' style='color:#4CA6FF;' target='_blank'>options</a>.")
+							error("Une erreur est survenue (#003) :  <br/> Vos identifiants semblent incorrects. Verrifiez-les dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>.")
 						else
-							error("Une erreur CAS (#004) est survenue - Message : "+$('<div>' + data + '</div>').find("#msg").text());
+							error("Une erreur CAS (#004) est survenue <br/><br/> Message : "+$('<div>' + data + '</div>').find("#msg").text());
 					}else //Si il y a une erreur et pas de message
 						error("Une erreur inconnue (#005) est survenue lors de votre connexion à CAS.");
 					
 				}).fail(function() {
-					error("Un problème est survenu (#002), êtes-vous connecté à internet ?");
+					error("Un problème est survenu (#002), <br/> êtes-vous connecté à internet ?");
 				});
 			});				
 	}).fail(function() {
-		error("Un problème est survenu (#001), êtes-vous connecté à internet ?");
+		error("Un problème est survenu (#001),<br/> êtes-vous connecté à internet ?");
 	})
 
 }
@@ -219,7 +232,7 @@ function connectCIPC() {
 			error("Une erreur inconnue (#008) est survenue lors de votre connexion à CIPCNet.");
 		
 	}).fail(function() {
-		error("Un problème est survenu (#007), êtes-vous connecté à internet ?");
+		error("Un problème est survenu (#007),<br/> êtes-vous connecté à internet ?");
 	});
 
 }
@@ -235,7 +248,7 @@ function connectMoodle() {
 			error("Une erreur inconnue (#010) est survenue lors de votre connexion au Moodle.");
 		
 	}).fail(function() {
-		error("Un problème est survenu (#009), êtes-vous connecté à internet ?");
+		error("Un problème est survenu (#009),<br/> êtes-vous connecté à internet ?");
 	});
 
 }
@@ -244,21 +257,20 @@ function connectZimbra() {
 
 	//On se connecte à Zimbra
 	$.get("https://login.insa-lyon.fr/zimbra/login?version=standard").done(function (response) { //On demande la page de connexion
-		console.log(response);
 		if($('<div>' + response + '</div>').find(".skin_link:eq(1)").text() == "Se déconnecter") //Si le bouton déconnexion est present sur Zimbra (donc il est connecté)
 			chrome.storage.local.set({services: "Zimbra"}); //On tick le service Zimbra sur la popup
 		else
 			error("Une erreur inconnue (#012) est survenue lors de votre connexion à Zimbra.");
 		
 	}).fail(function() {
-		error("Un problème est survenu (#011), êtes-vous connecté à internet ?");
+		error("Un problème est survenu (#011),<br/> êtes-vous connecté à internet ?");
 	});
 
 }
 
 
 function error(error) {
-	chrome.storage.local.set({connect: error});
+	chrome.storage.local.set({erreur: error});
 }
 
 function MajNom(nom){
@@ -273,28 +285,6 @@ tabnom=tabnom.join('-')
 return tabnom
 }
 
-function connect() {
-			chrome.storage.local.set({connect: ""});
-			chrome.storage.local.set({connect: "debut"});
-			
-			
-		if(!(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom'])){
-			chrome.storage.local.set({connect: "insa-invité"});
-		
-			$.post( "https://a6000.insa-lyon.fr/cgi-bin/login", { user: localStorage['nom'], fqdn: "insa-lyon.fr", password:CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), submit:"envoyer" }, function() {}).error(function(xhr) {	 if(xhr.status==0) chrome.tabs.create({url: 'http://www.google.com'});			});
-
-			chrome.storage.local.set({connect: "insa CAS"});
-			var frame = document.createElement('iframe');
-			frame.setAttribute('src','https://login.insa-lyon.fr/cas/login?service=http%3A//cipcnet.insa-lyon.fr/scol/php/ok/');
-			document.body.appendChild(frame);
-				
-		}
-		else {
-			chrome.storage.local.set({connect: "nope"});
-			deleteFrames();
-		}
-			
-}
 
 
 function deleteFrames() {
