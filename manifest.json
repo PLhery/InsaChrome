@@ -1,6 +1,6 @@
 {
    "background": {
-      "scripts": [ "jquery-2.1.1.min.js", "background.js" ]
+      "scripts": [ "jquery-2.1.1.min.js", "aes.js", "background.js" ] 
    },
    "browser_action": {
       "default_icon": "icon48.png",
@@ -33,6 +33,6 @@
       "keyword": "i"
    },
    "options_page": "options.html",
-   "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs", "webRequest", "webRequestBlocking" ],
+   "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs" ],
    "version": "3.0.3"
 }

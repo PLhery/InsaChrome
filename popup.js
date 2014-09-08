@@ -85,39 +85,38 @@ var circAnimColors=new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688",
 function circularAnimation() { //adapté de http://jsfiddle.net/F9pLC/
 							
 						
-		var START_RADIUS = 10;
 		var width = $("#wait").width(),
-			height = $("#wait").height();
-		var diag = Math.ceil(Math.sqrt(width * width + height * height));
+			height = $("#wait").height(); //dimensions de la popup
+		var diag = Math.ceil(Math.sqrt(width * width + height * height)); //On en déduit la diagonale/Le rayon max du cercle
 		var pageX = width/2,
-			pageY = height/2;
-		$('<div class="circle">').appendTo("#wait").css({
-			width: START_RADIUS * 2,
-			height: START_RADIUS * 2,
-			"border-radius": START_RADIUS,
+			pageY = height/2; //On en déduit le centre
+		$('<div class="circle">').appendTo("#wait").css({ //On rajoute un cercle de 20*20/de rayon 10px au centre
+			width: 20,
+			height: 20,
+			"border-radius": 20,
 			top: pageY,
 			left: pageX,
-			"background-color": circAnimColors[circAnimI%6]
+			"background-color": circAnimColors[circAnimI%6] //sa couleur ? La suivante dans le tableau
 		}).animate({
 			width: diag,
-			height: diag
+			height: diag //On l'anime de sa taille actuelle à la taille de la diagonale (quand le cercle a atteint la diagonale)
 		}, {
 			step: function (now, fx) {
 				if (fx.prop === "height") return;
 				$(this)
 					.css("top", pageY - now/ 2)
-					.css("left", pageX - now / 2)
+					.css("left", pageX - now / 2) //à chaque étape on ajuste la position et le radius pour que ca reste un cercle
 					.css("border-radius", now / 2);
 			},
 			easing: "swing",
 			duration: 700,
 			done: function () {
-				$("#wait").css("background-color", $(this).css("background-color")).css("z-index", "");
+				$("#wait").css("background-color", $(this).css("background-color")).css("z-index", ""); //quand c'est fait on enlève le cercle et met la vraie couleur de fond
 				$(this).remove();
 				circAnimI++;
-				circularAnimation();
+				if(!$("#wait").is(":hidden")) //si le wait n'est pas caché on recommence
+					circularAnimation();
 			}
 		});
-		$("#wait").css("z-index", -3);
 }
 circularAnimation();
