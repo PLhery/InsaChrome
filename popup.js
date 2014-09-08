@@ -1,21 +1,10 @@
-if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']) {
-	document.getElementById('connect').style.display="block";
-	document.getElementById('informations').style.display="none";
-	document.getElementById('connect').innerHTML="Merci de rentrer votre identifiant/mot de passe dans les <a href='options.html' style='color:#4CA6FF;' target='_blank'>options</a>.";
-}else {
-		chrome.storage.local.set({connect: "fini"});
-		/*frame = document.createElement('iframe');
-		frame.style.display = 'none';
-		frame.setAttribute('src','https://login.insa-lyon.fr/cas/login?service=http%3A//cipcnet.insa-lyon.fr/scol/php/ok/');
-		document.body.appendChild(frame);*/
-		
-		
-		//chrome.runtime.sendMessage({method: "connect"});
-		chrome.runtime.sendMessage({method: "popupStart"});
+		chrome.runtime.sendMessage({method: "popupStart"}); //On prévient le Background que la popup est lancée.
 		
 		chrome.storage.local.set({services: "aucun"}); //Aucun services n'est tické.
 		chrome.storage.local.set({state: "wait"}); //Ecran de chargement affiché
 		chrome.storage.local.set({erreur: ""}); //Pas d'erreur
+		chrome.storage.local.set({infos: ""}); //Pas d'infos
+		var timeout; //On déclare la variable timeout, contenant le dernier timeout lancé à annuler avec clearTimeout.
 		chrome.storage.onChanged.addListener(function(changes, namespace) {
 			for (key in changes) {
 			
@@ -24,13 +13,13 @@ if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage[
 					
 					if($('input:checked').length == $('input').length) { //si tous les services sont tickés
 						
-						chrome.storage.local.set({state: "connecté"}); //On passe l'état à connecté
+						
 						chrome.runtime.sendMessage({method: "popupStart"}); //On relance la récupération d'informations
 						
 						$("#services").slideUp()	//On lance l'animation
 						$("#ok").slideDown().css("opacity",1).css("font-size","80px").css("width","150px");;
 						$("body").css("background","#92C060");
-						
+						setTimeout(function(){  chrome.storage.local.set({state: "connecté"})  },1000); //On passe l'état à connecté après 1 seconde
 
 			
 						
@@ -45,59 +34,51 @@ if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage[
 					}
 				}
 				if(key=="state" && changes["state"].newValue == "connexion") { //Si on passe à l'état de connexion
-					$("body").css("background","#FEFEFE").css("margin","5px");;
+					$("body").css("background","#FEFEFE").css("margin","5px");
 					$("#wait").slideUp();
 					$("#services").slideDown();
-					setTimeout(function(){
+					timeout = setTimeout(function(){
 							$("body").css("background","url(popup_background.png)");
 						}, 500);
 				}
-				
 
-				if(key=="erreur" & changes["erreur"].newValue != "") { //S'il y a bien une erreur
+
+				if(key=="erreur" && changes["erreur"].newValue) { //S'il y a bien une erreur
 					$("body").css("margin","8px").css("background","#009688");
-					setTimeout(function(){
-							$("body").css("background","#009688"); //On rechange le background si un truc à retardement l'a rechangé
-						}, 700);
+					clearTimeout(timeout); //On annule le dernier settimeout qui pourrait changer le background
 					$("#ok").slideUp();
-					$("#services").slideUp()
-					$("#wait").slideUp()
+					$("#services").slideUp();
+					$("#wait").slideUp();
 					$("#informations").slideUp();
-					$("#erreur").html(changes["erreur"].newValue).slideDown();
-					throw { name: 'FatalError', message: 'Something went badly wrong' };
-					return; 
+					$("#message").html(changes["erreur"].newValue)
+					$("#erreur").slideDown();
 				}
-				if(key=="infos" & changes["infos"].newValue != "recu") {
-				
-				
-					chrome.storage.local.set({infos: "recu"});
 
-					document.getElementById('mails').innerHTML=changes[key].newValue[0];
+				if(key=="infos" && changes["infos"].newValue) { //Si on recoit les infos
+				
+					document.getElementById('mails').innerHTML=changes[key].newValue[0]; //On les inscrit dans les cases
 					document.getElementById('solde').innerHTML=changes[key].newValue[1];
 					document.getElementById('soldeforfait').innerHTML=changes[key].newValue[2];
 					document.getElementById('photo').src= "http://cipcnet.insa-lyon.fr/scol/tr_eleves/"+changes[key].newValue[3]+".jpg";
 					document.getElementById('nom').innerHTML=changes[key].newValue[4];
 					//document.getElementById('admission').innerHTML=changes[key].newValue[5];
-					setTimeout(function(){
-							$("body").css("margin","5px");
-							$("#ok").slideUp();
-							$("#services").slideUp()
-							$("#wait").slideUp()
-							$("#informations").slideDown();
-							$("body").css("background","#FEFEFE");
-							setTimeout(function(){
-								$("body").css("background","url(popup_background.png)");
-							}, 700);
-					},1000);
+					document.getElementById('impressions').innerHTML=changes[key].newValue[5];
+					
+					$("body").css("margin","5px"); //On lance l'animation
+					$("#ok").slideUp();
+					$("#services").slideUp()
+					$("#wait").slideUp()
+					$("#informations").slideDown();
+					$("body").css("background","#FEFEFE");
+					timeout = setTimeout(function(){
+						$("body").css("background","url(popup_background.png)");
+					}, 700);
 				}
 				
 				
 
 			}
       });
-
-
-}
 
 var circAnimI=0;
 var circAnimColors=new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800");

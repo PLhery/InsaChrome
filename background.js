@@ -60,32 +60,34 @@ chrome.webRequest.onHeadersReceived.addListener(
 });
 
 function getInformations() { //Le but est de récupérer toutes les informations, et que si une ne va pas, on lance la connexion
-				var solde1=false;
+
+				var solde1=false;//On n'a aucune info
 				var solde2=false;
 				var infomails=false;
 				var infonom = false;
 				var infoto = false;
 				var connection = false;
-				var admission = false;
-				$.get('https://planete.insa-lyon.fr/uPortal/f/u23l1s5/normal/render.uP', function (response) {
+				var impressions = false;
+				
+				$.get('https://planete.insa-lyon.fr/uPortal/f/u23l1s5/normal/render.uP', function (response) { //On récupère les infos sur le solde
 					var source = $('<div>' + response + '</div>');
 					
 					solde1 = source.find('.reco-balance:eq(0)').text();
-					solde2 = source.find('.reco-balance:eq(1)').text();
+					solde2 = source.find('.reco-balance:eq(1)').text(); //On les lit
 
-					if(!solde2 && source.find('.reco-background').text()) {
+					if(!solde2 && source.find('.reco-background').text()) { //Si on a pas de solde (ex l'etudiant n'est pas au self), écrire n/a
 						solde1 = solde2 = "n/a €";
 					}
 					
-					if(!solde2 && !connection) {
+					if(!solde2 && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
 						connection = true;
 						connect();
 					}
 					
-					if(solde1 && solde2 && infonom && infoto && infomails && admission)
-						envoiinfos(infomails, solde1, solde2, infonom, infoto, admission);
+					if(solde1 && solde2 && infonom && infoto && infomails && impressions) //Si on a toutes les infos (si c'etait le dernier qu'on attendait), on les envoi
+						envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions);
 						
-				}).fail(function() {
+				}).fail(function() { //Si on a un problème, on lance la connexion
 							if(!connection) {
 								connection = true;
 								connect();
@@ -95,8 +97,8 @@ function getInformations() { //Le but est de récupérer toutes les informations
 
 
 
-
-								$.get('http://cipcnet.insa-lyon.fr/scol/bulletin_eleve', function (response) {
+				/* Récupérait les infos sur l'admission. Plus à afficher
+				$.get('http://cipcnet.insa-lyon.fr/scol/bulletin_eleve', function (response) {
 					var source = $('<div>' + response + '</div>');
 					
 					admission = source.find('tbody:eq(2) tr:last').text();
@@ -114,18 +116,20 @@ function getInformations() { //Le but est de récupérer toutes les informations
 								connection = true;
 								connect();
 							}
-						  });	
+						  });	*/
 						  
-						  
-				
-				$.get('https://planete.insa-lyon.fr/insa-zimbra-portlet/api/getMessageSummaries', function (mails) {
-					infomails = mails.messageSummary.unreadCount+" / "+mails.messageSummary.messageCount;
-					if(!infomails  && !connection) {
+				$.get('http://cipcnet.insa-lyon.fr/cipc/mon_quota_prn', function (response) { //On récupère les quota des impressions
+					var source = $('<div>' + response + '</div>');
+					
+					impressions = source.find('td td').first().text()+" / "+source.find('td td:eq(2)').text(); //nombre d'impressions / limite haute
+					
+					if((!source.find('td td').first().text() || !source.find('td td:eq(2)').text() ) && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
 						connection = true;
 						connect();
 					}
-					if(solde1 && solde2 && infonom && infoto && infomails && admission)
-						envoiinfos(infomails, solde1, solde2, infonom, infoto, admission);
+					
+					if(solde1 && solde2 && infonom && infoto && infomails && impressions)
+						envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions);
 						
 				}).fail(function() {
 							if(!connection) {
@@ -134,19 +138,36 @@ function getInformations() { //Le but est de récupérer toutes les informations
 							}
 						  });
 						  
-				$.get('http://cipcnet.insa-lyon.fr/scol/cnil_getinfos', function (response) {
-					var source2 = $('<div>' + response + '</div>');
-					infonom = MajNom(source2.find('td:eq(11)').html())+" "+source2.find('td:eq(9)').html();
-					infoto = source2.find('td:eq(5)').html();
-					
-					if(!infonom  && !connection) {
+				
+				$.get('https://planete.insa-lyon.fr/insa-zimbra-portlet/api/getMessageSummaries', function (mails) { //On récupère le nombre de mails restant
+					infomails = mails.messageSummary.unreadCount+" / "+mails.messageSummary.messageCount; //On met les infos en forme
+					if((!mails.messageSummary.unreadCount || !mails.messageSummary.messageCount)  && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
 						connection = true;
 						connect();
 					}
-					if(solde1 && solde2 && infonom && infoto && infomails && admission)
-						envoiinfos(infomails, solde1, solde2, infonom, infoto, admission);
+					if(solde1 && solde2 && infonom && infoto && infomails && impressions) //Si on a toutes les infos (si c'etait le dernier qu'on attendait), on les envoi
+						envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions);
 						
-				}).fail(function() {
+				}).fail(function() { //Si on a un problème, on lance la connexion
+							if(!connection) {
+								connection = true;
+								connect();
+							}
+						  });
+						  
+				$.get('http://cipcnet.insa-lyon.fr/scol/cnil_getinfos', function (response) { //On récupère le nom et la photo
+					var source2 = $('<div>' + response + '</div>');
+					infonom = MajNom(source2.find('td:eq(11)').html())+" "+source2.find('td:eq(9)').html(); //On met le nom et le prénom en forme (et met les premières lettres des noms, meme composés, en maj)
+					infoto = source2.find('td:eq(5)').html();
+					
+					if((!source2.find('td:eq(11)').html() || !source2.find('td:eq(9)').html()) && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
+						connection = true;
+						connect();
+					}
+					if(solde1 && solde2 && infonom && infoto && infomails && impressions) //Si on a toutes les infos (si c'etait le dernier qu'on attendait), on les envoi
+						envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions);
+						
+				}).fail(function() { //Si on a un problème, on lance la connexion
 							if(!connection) {
 								connection = true;
 								connect();
@@ -155,15 +176,14 @@ function getInformations() { //Le but est de récupérer toutes les informations
 
 	}
 	
-	function envoiinfos(infomails, solde1, solde2, infonom, infoto, admission) {
-		chrome.storage.local.set({infos: new Array()});
+	function envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions) {
 		chrome.storage.local.set({infos: new Array(
 		infomails,
 		solde1,
 		solde2,
 		infoto,
 		infonom,
-		admission
+		impressions
 		)});
 	}
 				
@@ -171,14 +191,13 @@ function connect() {
 	chrome.storage.local.get('state', function (result) { //On récupère l'etat de la popup
         if(result.state=="connecté") //Si il est déja sensé être connecté
 			error("Une erreur est survenue (#013) : <br/> Impossible de récupérer vos informations. Un site INSA a peut être un problème/cette extension n'est peut etre pas à jour !");
-		else {//sinon
-			chrome.storage.local.set({state: "connexion"});  //On passe la popup à l'etat de connexion
-	
-			if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']) //On vérifie si on a bien un username/pass
-				error("Merci de rentrer votre identifiant/mot de passe dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>. (#006)");
+			
+		else if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']) //On vérifie si on a bien un username/pass
+				error("Merci de rentrer votre identifiant/mot de passe dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>. (#006)"); 
 				
-			//On lance la connexion
-			connectCAS();
+		else {//si y'a pas de soucis
+			chrome.storage.local.set({state: "connexion"});  //On passe la popup à l'etat de connexion
+				connectCAS(); //Et on lance la connexion
 	}
     });
 
@@ -201,6 +220,7 @@ function connectCAS()  {
 									connectMoodle();//On se connecte à Moodle
 									connectCIPC();//On se connecte à CIPCnet
 									connectZimbra();//On se connecte à Zimbra
+									connectPlanete(); //On se connecte à Planète
 									
 					}else if($('<div>' + data + '</div>').find("#msg").text()) { //Sinon, s'il y a un message
 					
@@ -268,6 +288,21 @@ function connectZimbra() {
 
 }
 
+function connectPlanete() {
+
+	//On se connecte à Planète
+	$.get("https://planete.insa-lyon.fr/uPortal/f/u23l1s5/normal/render.uP").done(function (response) { //On demande la page de connexion
+		if($('<div>' + response + '</div>').find(".link-logout").first().text() == "Déconnexion") //Si le bouton déconnexion est present sur Planète (donc il est connecté)
+			chrome.storage.local.set({services: "Planete"}); //On tick le service Zimbra sur la popup
+		else
+			error("Une erreur inconnue (#015) est survenue lors de votre connexion à Planète.");
+		
+	}).fail(function() {
+		error("Un problème est survenu (#014),<br/> êtes-vous connecté à internet ?");
+	});
+
+}
+
 
 function error(error) {
 	chrome.storage.local.set({erreur: error});
@@ -286,29 +321,6 @@ return tabnom
 }
 
 
-
-function deleteFrames() {
-	var iframes = document.getElementsByTagName('iframe');
-	for (var i = 0; i < iframes.length; i++) {
-		iframes[0].parentNode.removeChild(iframes[0]);
-	}
-}
-
-		chrome.storage.onChanged.addListener(function(changes, namespace) {
-			for (key in changes) {
-				if(key=="connect" & changes["connect"].newValue =="ok") {
-					deleteFrames();
-				}
-				if(key=="connect" & changes["connect"].newValue =="zimbra") {
-					//deleteFrames();
-					 $.get('https://login.insa-lyon.fr/cas/login?service=https%3A%2F%2Flogin.insa-lyon.fr%2Fzimbra%2Flogin%3Fversion%3Dpreferred', function (response) {
-									//on test si c'est bien zimbra
-					}).fail(function() {
-						chrome.storage.local.set({connect: "nope"});
-					});
-				}
-			}
-      });
 	  
 	  
 

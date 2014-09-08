@@ -4,27 +4,27 @@
 	
 <link rel="stylesheet" type="text/css" href="fontello/css/fontello-embedded.css">
 	<style>
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
-}
+		@font-face {
+		  font-family: 'Roboto';
+		  font-style: normal;
+		  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
+		}
 
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Montserrat-Regular'), url(Montserrat.woff2) format('woff2');
-}
+		@font-face {
+		  font-family: 'Montserrat';
+		  font-style: normal;
+		  font-weight: 400;
+		  src: local('Montserrat-Regular'), url(Montserrat.woff2) format('woff2');
+		}
 
-body {
-min-width:150px;
-//background:url(popup_background.png);
-backgtround:orange;
-  transition: background 1s, margin 0.5s;
-  z-index: -5;
-  margin:0;
-}
+		body {
+		min-width:150px;
+		//background:url(popup_background.png);
+		backgtround:orange;
+		  transition: background 1s, margin 0.5s;
+		  z-index: -5;
+		  margin:0;
+		}
 		.connect
 		{
 		font-family: 'Roboto';
@@ -73,68 +73,74 @@ backgtround:orange;
 			position: relative;
 			background:orange;
 		}
-		#erreur{
+		#erreurBoite{
 			min-height:100px;
 			font-family: Roboto;
 			font-size:15px;
 			color:white;
 			text-align:center;
 			width:200px;
-			opacity:1;
+			display:table;
 		}
-.circle {
-    position: absolute;
-    z-index: -1;
-}
+		.circle {
+			position: absolute;
+			z-index: -1;
+		}
 
-/*checkbox animés - inspiré de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
+		#message {
+			  display: table-cell; 
+			  vertical-align: middle; 
+			  text-align: center; 
+		}
+		/*checkbox animés - inspiré de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
 
-label {
-	position: relative;
-	padding-left: 30px;
-	font-size: 14px;
-	cursor: pointer;
-	font-family: 'Montserrat';
-}
-label:before, label:after {
-	font-family: fontello;
-	font-size: 21px;
-	/*absolutely positioned*/
-	position: absolute; top: 0; left: 0;
-}
-label:before {
-	content: '\f096'; /*unchecked*/
-}
-label:after {
-	content: '\e801'; /*checked*/
-	max-width: 0;
-	opacity: 0.3;
-	overflow: hidden;
-	transition: all 0.4s;
-}
-input[type="checkbox"] {
-	display: none;
-}
-input[type="checkbox"]:checked + label:after {
-	max-width: 25px;
-	opacity: 1; /*for fade in effect*/
-}
+		label {
+			position: relative;
+			padding-left: 30px;
+			font-size: 14px;
+			cursor: pointer;
+			font-family: 'Montserrat';
+		}
+		label:before, label:after {
+			font-family: fontello;
+			font-size: 21px;
+			/*absolutely positioned*/
+			position: absolute; top: 0; left: 0;
+		}
+		label:before {
+			content: '\f096'; /*unchecked*/
+		}
+		label:after {
+			content: '\e801'; /*checked*/
+			max-width: 0;
+			opacity: 0.3;
+			overflow: hidden;
+			transition: all 0.4s;
+		}
+		input[type="checkbox"] {
+			display: none;
+		}
+		input[type="checkbox"]:checked + label:after {
+			max-width: 25px;
+			opacity: 1; /*for fade in effect*/
+		}
 
-#chInvite+label:before, #chInvite+label:after {color: hsl(0, 45%, 40%);}
-#chCAS+label:before, #chCAS+label:after {color: hsl(60, 45%, 40%);}
-#chCIPC+label:before, #chCIPC+label:after {color: hsl(120, 45%, 40%);}
-#chMoodle+label:before, #chMoodle+label:after {color: hsl(180, 45%, 40%);}
-#chZimbra+label:before, #chZimbra+label:after {color: hsl(240, 45%, 40%);}
-#chPlanete+label:before, #chPlanete+label:after {color: hsl(300, 45%, 40%);}
+		#chInvite+label:before, #chInvite+label:after {color: hsl(0, 45%, 40%);}
+		#chCAS+label:before, #chCAS+label:after {color: hsl(60, 45%, 40%);}
+		#chCIPC+label:before, #chCIPC+label:after {color: hsl(120, 45%, 40%);}
+		#chMoodle+label:before, #chMoodle+label:after {color: hsl(180, 45%, 40%);}
+		#chZimbra+label:before, #chZimbra+label:after {color: hsl(240, 45%, 40%);}
+		#chPlanete+label:before, #chPlanete+label:after {color: hsl(300, 45%, 40%);}
 </style>
 
 </head>
 
 <body>
 	<div id="informations" style="display:none;">
-		<p class="infos" id = "infos">Mails non lus :<br/><span class="reco-balance" id="mails">... / ...</span></p><br/>
-		<p class="infos" id = "infos">Solde :<br/><span class="reco-balance"  id="solde">... €</span></p>
-		<p class="infos" id = "infos">Solde forfait :<br/><span class="reco-balance"  id="soldeforfait">... €</span></p><br/>
+		<p class="infos" id = "infos">Mails non lus :<br/><span class="reco-balance" id="mails" style="background:#259b24">... / ...</span></p><br/>
+		<p class="infos" id = "infos">Quota d'impressions :<br/><span class="reco-balance" id="impressions" style="background:#3f51b5">... / 200</span></p><br/>
+		<p class="infos" id = "infos">Solde :<br/><span class="reco-balance"  id="solde" style="background:#009688">... €</span></p>
+		<p class="infos" id = "infos">Solde forfait :<br/><span class="reco-balance"  id="soldeforfait" style="background:#009688">... €</span></p><br/>
 		<!--p class = "infos"><span class="reco-balance" id="admission" style="background-color:green">...???</span></p><br/     (admission)-->
 		<p class="infos" id = "infos">Connecté en tant que :</p>
 		<table>
@@ -164,16 +170,19 @@ input[type="checkbox"]:checked + label:after {
 		<input type="checkbox" id="chZimbra" />
 		<label>Zimbra</label>
 		<br/>
-		<input type="checkbox" checked id="chPlanete" />
+		<input type="checkbox" id="chPlanete" />
 		<label>Planète</label>
 	</div>
 	<div id="ok" style="display:none;">
-	&#59392;
+		&#59392;
 	</div>
 	<div id="wait">
-Chargement..
+		Chargement..
 	</div>
 	<div id="erreur" style="display:none;">
+		<div id="erreurBoite">
+			<p id="message"></p>
+		</div>
 	</div>
 	<script src="jquery-2.1.1.min.js"></script>
 	<script src="popup.js">	</script>
