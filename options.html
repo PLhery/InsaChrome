@@ -3,14 +3,21 @@
 <head>
 	<title>INSAChrome - configuration</title>
 	<style>
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
-}
+		@font-face {
+		  font-family: 'Roboto';
+		  font-style: normal;
+		  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
+		}
 
-
-
+		body {
+			overflow: hidden;
+			position: relative;
+			z-index: -3;
+		}
+		.circle {
+			position: absolute;
+			z-index: -1;
+		}
 		.center {
 			font-family: 'roboto';
 			text-align: center;
@@ -24,7 +31,7 @@
 		.infos {
 			display:none;
 		}
-		#plusinfos {
+		#plusinfos, #apropos {
 			color:#4CA6FF;
 			text-decoration:none;
 			border-bottom: 1px solid #4CA6FF;
@@ -41,7 +48,11 @@
 <body>
 	<div class="center" id="center">
 		<p><span style="border-bottom: 1px solid black;font-size:50px;">Parametrez InsaChrome</span><br/></p>
-		<p style="text-align:right;"><a href="#" id="plusinfos">Indications sur les options</a></p>
+		<div style="clear: both;">
+		<p style="float:left;margin:0"><a href="about.html" id="apropos">A propos</a></p>
+		<p style="float:right;margin:0"><a href="#" id="plusinfos">Indications sur les options</a></p>
+		</div>
+		<div style="clear: both;"></div>
 		<p class="infos">Pour pouvoir vous connecter à Insa-invité, cipcnet et tout autre site INSA, il me faut vos identifiants.<br/> Ne vous inquiétez-pas, ils sont stockés sur votre ordinateur, et ne sont transmis qu'aux sites INSA</p>
 		<br/>
 		
@@ -68,6 +79,7 @@ Vous pouvez désactiver l'une de ces fonctions ici :</p>
 <img src="batman.gif" style="width:100px;margin:0 auto;" class="infos"/>
 	</div>
 	
+	<script type='text/javascript' src='jquery-2.1.1.min.js'></script>
 	<script type='text/javascript' src='aes.js'></script>
 		<script src="options.js">
 	</script>

@@ -46,10 +46,10 @@
 				if(key=="erreur" && changes["erreur"].newValue) { //S'il y a bien une erreur
 					$("body").css("margin","8px").css("background","#009688");
 					clearTimeout(timeout); //On annule le dernier settimeout qui pourrait changer le background
-					$("#ok").slideUp();
-					$("#services").slideUp();
-					$("#wait").slideUp();
-					$("#informations").slideUp();
+					$("#ok").stop().slideUp();
+					$("#services").stop().slideUp();
+					$("#wait").stop().slideUp();
+					$("#informations").stop().slideUp();
 					$("#message").html(changes["erreur"].newValue)
 					$("#erreur").slideDown();
 				}

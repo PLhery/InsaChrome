@@ -212,8 +212,11 @@
 						error("Un problème est survenu (#002), <br/> êtes-vous connecté à internet ?");
 					});
 				});				
-		}).fail(function() {
-			error("Un problème est survenu (#001),<br/> êtes-vous connecté à internet ?");
+		}).fail(function(jqXHR) {
+			if(!jqXHR.status)
+				error("Un problème est survenu (#001),<br/> êtes-vous connecté à internet ?");
+			else
+				error("Une erreur est survenue sur le site CAS (#016),<br/>"+jqXHR.status+" - "+jqXHR.statusText);
 		})
 
 	}
@@ -229,7 +232,10 @@
 				error("Une erreur inconnue (#008) est survenue lors de votre connexion à CIPCNet.");
 			
 		}).fail(function() {
-			error("Un problème est survenu (#007),<br/> êtes-vous connecté à internet ?");
+			if(!jqXHR.status)
+				error("Un problème est survenu (#007),<br/> êtes-vous connecté à internet ?");
+			else
+				error("Une erreur est survenue sur le site CIPC (#017),<br/>"+jqXHR.status+" - "+jqXHR.statusText);
 		});
 
 	}
@@ -239,13 +245,16 @@
 		//On se connecte à Moodle
 		$.get("http://cipcnet.insa-lyon.fr/moodle.195/login/index.php").done(function (response) { //On demande la page de connexion
 			
-			if($('<div>' + response + '</div>').find("#portal-personaltools a:eq(1)").text() == "Déconnexion") //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
+			if($('<div>' + response + '</div>').find("#portal-personaltools li a:eq(1)").text() == "Déconnexion") //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
 				chrome.storage.local.set({services: "Moodle"}); //On tick le service Moodle sur la popup
 			else
 				error("Une erreur inconnue (#010) est survenue lors de votre connexion au Moodle.");
 			
 		}).fail(function() {
-			error("Un problème est survenu (#009),<br/> êtes-vous connecté à internet ?");
+			if(!jqXHR.status)
+				error("Un problème est survenu (#009),<br/> êtes-vous connecté à internet ?");
+			else
+				error("Une erreur est survenue sur le site moodle (#018),<br/>"+jqXHR.status+" - "+jqXHR.statusText);
 		});
 
 	}
@@ -260,7 +269,10 @@
 				error("Une erreur inconnue (#012) est survenue lors de votre connexion à Zimbra.");
 			
 		}).fail(function() {
-			error("Un problème est survenu (#011),<br/> êtes-vous connecté à internet ?");
+			if(!jqXHR.status)
+				error("Un problème est survenu (#011),<br/> êtes-vous connecté à internet ?");
+			else
+				error("Une erreur est survenue sur le site Zimbra (#019),<br/>"+jqXHR.status+" - "+jqXHR.statusText);
 		});
 
 	}
@@ -274,8 +286,14 @@
 			else
 				error("Une erreur inconnue (#015) est survenue lors de votre connexion à Planète.");
 			
-		}).fail(function() {
-			error("Un problème est survenu (#014),<br/> êtes-vous connecté à internet ?");
+		}).fail(function(jqXHR) {
+			if(!jqXHR.status)
+				error("Un problème est survenu (#014),<br/> êtes-vous connecté à internet ?");
+			else if(jqXHR.status==503)
+				error("Le site planète semble en maintenance... (#020)");
+			else
+				error("Une erreur est survenue sur le site planète (#020),<br/>"+jqXHR.status+" - "+jqXHR.statusText);
+			
 		});
 
 	}
