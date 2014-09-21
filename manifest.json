@@ -16,7 +16,7 @@
       "matches": [ "*://securelogin.arubanetworks.com/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/CP_FILAIRE/centre.htm" ]
    }, {
       "js": [ "autoconnect.js" ],
-      "matches": [ "*://*.indsa-lyon.fr/*" ]
+      "matches": [ "*://*.insa-lyon.fr/*" ]
    }, {
       "js": [ "emploitempsclick.js" ],
       "matches": [ "http://cipcnet.insa-lyon.fr/scol/edt_form?insachromeclick" ]

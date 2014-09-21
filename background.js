@@ -202,7 +202,7 @@
 						}else if($('<div>' + data + '</div>').find("#msg").text()) { //Sinon, s'il y a un message
 						
 							if($('<div>' + data + '</div>').find("#msg").text()=="Mauvais identifiant / mot de passe.")//Si c'est un problème de mot de passe
-								error("Une erreur est survenue (#003) :  <br/> Vos identifiants semblent incorrects. Verrifiez-les dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>.")
+								error("Une erreur est survenue (#003) :  <br/> Vos identifiants semblent incorrects. Verifiez-les dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>.")
 							else
 								error("Une erreur CAS (#004) est survenue <br/><br/> Message : "+$('<div>' + data + '</div>').find("#msg").text());
 						}else //Si il y a une erreur et pas de message
@@ -226,7 +226,7 @@
 		//On se connecte à CIPCNET
 		$.get("https://login.insa-lyon.fr/cas/login?service=http%3A%2F%2Fcipcnet.insa-lyon.fr%2Flogin_form").done(function (response) { //On demande la page de connexion
 		
-			if($('<div>' + response + '</div>').find("#user-name").length) //Si le nom d'utilisateur est bien affiché sur moodle (donc il est connecté)
+			if($('<div>' + response + '</div>').find("#user-name").length) //Si le nom d'utilisateur est bien affiché sur CIPC (donc il est connecté)
 				chrome.storage.local.set({services: "CIPC"}); //On tick le service CIPC sur la popup
 			else
 				error("Une erreur inconnue (#008) est survenue lors de votre connexion à CIPCNet.");

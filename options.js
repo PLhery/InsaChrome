@@ -50,7 +50,6 @@ $(document).keydown(function (e) {
     if (e.keyCode === k[n++]) {  
         if (n === k.length) {   //Si on les appuie successivement...
             circularAnimation();//...et beh ca fait kek'chose.
-            return !1  
         }  
     } else n = 0  
 });  
