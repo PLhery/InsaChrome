@@ -47,49 +47,10 @@ document.getElementById('plusinfos').onclick = function () { //Si on clique sur 
 var k = [73,78,83,65]; //Les lettres I,N,S,A
 n = 0;  
 $(document).keydown(function (e) {  
-    if (e.keyCode === k[n++]) {  
+    if (!$("input:focus").length && e.keyCode === k[n++]) {  
         if (n === k.length) {   //Si on les appuie successivement...
-            circularAnimation();//...et beh ca fait kek'chose.
+            var _0x4bf4=["\x3C\x64\x69\x76\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x61\x6C\x69\x67\x6E\x3A\x63\x65\x6E\x74\x65\x72\x3B\x22\x3E\x3C\x62\x72\x2F\x3E\x3C\x62\x72\x2F\x3E\x3C\x69\x66\x72\x61\x6D\x65\x20\x77\x69\x64\x74\x68\x3D\x22\x38\x35\x34\x22\x20\x68\x65\x69\x67\x68\x74\x3D\x22\x35\x31\x30\x22\x20\x73\x72\x63\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x77\x77\x77\x2E\x79\x6F\x75\x74\x75\x62\x65\x2E\x63\x6F\x6D\x2F\x65\x6D\x62\x65\x64\x2F\x42\x41\x6B\x75\x4B\x65\x58\x4B\x4C\x53\x41\x3F\x61\x75\x74\x6F\x70\x6C\x61\x79\x3D\x31\x22\x20\x66\x72\x61\x6D\x65\x62\x6F\x72\x64\x65\x72\x3D\x22\x30\x22\x3E\x3C\x2F\x69\x66\x72\x61\x6D\x65\x3E\x3C\x2F\x64\x69\x76\x3E","\x61\x70\x70\x65\x6E\x64","\x62\x6F\x64\x79"];$(_0x4bf4[2])[_0x4bf4[1]](_0x4bf4[0]);
+			//...et beh ca fait kek'chose de top secret.
         }  
     } else n = 0  
 });  
-
-
-var circAnimI=0;
-var circAnimColors=new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800"); //Un gros tas de couleurs
-function circularAnimation() { //adapté de http://jsfiddle.net/F9pLC/
-							
-						
-		var width = $(window ).width(),
-			height = $(window ).height(); //dimensions de la popup
-		var diag = Math.ceil(Math.sqrt(width * width + height * height)); //On en déduit la diagonale/Le rayon max du cercle
-		var pageX = width/2,
-			pageY = height/2; //On en déduit le centre
-		$('<div class="circle">').appendTo("body").css({ //On rajoute un cercle de 20*20/de rayon 10px au centre
-			width: 20,
-			height: 20,
-			"border-radius": 20,
-			top: pageY,
-			left: pageX,
-			"background-color": circAnimColors[circAnimI%6] //sa couleur ? La suivante dans le tableau
-		}).animate({
-			width: diag,
-			height: diag //On l'anime de sa taille actuelle à la taille de la diagonale (quand le cercle a atteint la diagonale)
-		}, {
-			step: function (now, fx) {
-				if (fx.prop === "height") return;
-				$(this)
-					.css("top", pageY - now/ 2)
-					.css("left", pageX - now / 2) //à chaque étape on ajuste la position et le radius pour que ca reste un cercle
-					.css("border-radius", now / 2);
-			},
-			easing: "swing",
-			duration: 700,
-			done: function () {
-				$("body").css("background-color", $(this).css("background-color")).css("z-index", ""); //quand c'est fait on enlève le cercle et met la vraie couleur de fond
-				$(this).remove();
-				circAnimI++;
-				circularAnimation();
-			}
-		});
-}

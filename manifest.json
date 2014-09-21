@@ -1,26 +1,20 @@
 {
    "background": {
-      "scripts": [ "jquery-2.1.1.min.js", "aes.js", "background.js" ] 
+      "scripts": [ "jquery-2.1.1.min.js", "aes.js", "background.js" ],
+	  "persistent": false
    },
    "browser_action": {
       "default_icon": "icon48.png",
       "default_popup": "popup.html"
    },
    "content_scripts": [ {
-      "js": [ "insainvitetop.js" ],
-      "matches": [ "*://securelogin.arubanetworks.com/upload/custom/guests/*", "*://*.insa-lyon.fr/upload/custom/guests/*", "*://*.insa-lyon.fr/upload/custom/CP_FILAIRE/*" ],
-      "run_at": "document_start"
-   }, {
       "all_frames": true,
       "js": [ "insainvite.js" ],
       "matches": [ "*://securelogin.arubanetworks.com/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/CP_FILAIRE/centre.htm" ]
    }, {
       "js": [ "autoconnect.js" ],
       "matches": [ "*://*.insa-lyon.fr/*" ]
-   }, {
-      "js": [ "emploitempsclick.js" ],
-      "matches": [ "http://cipcnet.insa-lyon.fr/scol/edt_form?insachromeclick" ]
-   } ],
+   }],
    "description": "Connectez-vous automatiquement au réseau wifi insa-invité, à cipcnet et au réseau insa, en un clic.",
    "icons": {
       "128": "icon128.png",
@@ -34,5 +28,5 @@
    },
    "options_page": "options.html",
    "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs" ],
-   "version": "3.0.4"
+   "version": "3.0.5"
 }

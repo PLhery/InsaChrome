@@ -26,11 +26,11 @@
 			margin:0;
 		width:200px;
 		}
-				.infos
+		.infos
 		{
-		font-family: 'Roboto';
-		font-size:14px;
-			margin:0;
+			font-family: 'Roboto';
+			font-size:14px;
+			margin:0 auto;
 			text-align:center;
 		}
 		

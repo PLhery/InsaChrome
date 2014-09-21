@@ -73,6 +73,7 @@
 					timeout = setTimeout(function(){
 						$("body").css("background","url(popup_background.png)");
 					}, 700);
+					chrome.storage.local.set({state: "connecté"});
 				}
 				
 				

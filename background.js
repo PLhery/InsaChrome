@@ -3,7 +3,7 @@
 		localStorage['passe'] = CryptoJS.AES.encrypt(localStorage['passe'], "1NS4"+localStorage['s']); //et on crypte le mot de passe
 	}
 	
-	
+
 	if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined') //Si les options ne sont pas définies, on les met à leur valeur par défaut.
 		localStorage['insainviteauto']=true;
 	if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
@@ -13,7 +13,7 @@
 
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { //Si une page (popup ou content script) nous demande des infos
 		if (request.method == "getInfos") //S'il veut les identifiants
-		  sendResponse({passe: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), nom: localStorage['nom'], insainviteauto: localStorage['insainviteauto']}); //les voila
+		  sendResponse({passe: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), nom: localStorage['nom'], insainviteauto: localStorage['insainviteauto'], autoconnect: localStorage['reseauinsaauto']}); //les voila
 		  
 		else if(request.method == "connect") { //S'il veut qu'on se connecte
 			connect(); //VoiliVoilou
