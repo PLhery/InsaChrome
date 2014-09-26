@@ -10,7 +10,9 @@
 		localStorage['reseauinsaauto']=true;
 	if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
 		localStorage['formatemploi']="pdf";	
-
+	if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
+		localStorage['ajoutsemaine']=true;
+		
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { //Si une page (popup ou content script) nous demande des infos
 		if (request.method == "getInfos") //S'il veut les identifiants
 		  sendResponse({passe: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), nom: localStorage['nom'], insainviteauto: localStorage['insainviteauto'], autoconnect: localStorage['reseauinsaauto']}); //les voila
@@ -422,9 +424,11 @@
 						chrome.tabs.update(tabs[0].id, {url: "patientez/connexion.html"}); //on lui affiche le message de connexion ///!!!!!!\\\ LA CONNEXION NE SE FAIT PAS ENCORE VRAIMENT
 					else if(!source.find("#id_groupe").val() || !source.find("#id_semaine_pc").val()) //Si le groupe ou la semaine n'est pas selectionnée
 						chrome.tabs.update(tabs[0].id, {url: "patientez/pasDeSemaine.html"}); //On lui propose de choisir
-					else //Si tout est bon, on charge l'emploi du temps
-						chrome.tabs.update(tabs[0].id, {url: "http://cipcnet.insa-lyon.fr/scol/"+edt+"?id_groupe="+source.find("#id_groupe").val()+"&id_semaine_pc="+source.find("#id_semaine_pc").val()+"&form.button.Ok=Ok&form.submitted=1"});
-						
+					else  {//Si tout est bon, on charge l'emploi du temps
+						var jour = new Date().getDay(); //On récupère le jour de la semaine
+						var nextWeek = (localStorage['ajoutsemaine']=="true" && (jour==6||jour==0)) //Si on est le week end  et qu'on a coché la case correspondante dans les options, on rajoute une semaine
+						chrome.tabs.update(tabs[0].id, {url: "http://cipcnet.insa-lyon.fr/scol/"+edt+"?id_groupe="+source.find("#id_groupe").val()+"&id_semaine_pc="+(parseInt(source.find("#id_semaine_pc").val())+nextWeek)+"&form.button.Ok=Ok&form.submitted=1"});
+						}
 				}).fail(function() { //Si on a un problème, on met le message d'erreur
 					chrome.tabs.update(tabs[0].id, {url: "patientez/erreurInternet.html"});
 				}); 
