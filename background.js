@@ -227,13 +227,13 @@
 
 		//On se connecte à CIPCNET
 		$.get("https://login.insa-lyon.fr/cas/login?service=http%3A%2F%2Fcipcnet.insa-lyon.fr%2Flogin_form").done(function (response) { //On demande la page de connexion
-		
+			alert("oui");
 			if($('<div>' + response + '</div>').find("#user-name").length) //Si le nom d'utilisateur est bien affiché sur CIPC (donc il est connecté)
 				chrome.storage.local.set({services: "CIPC"}); //On tick le service CIPC sur la popup
 			else
 				error("Une erreur inconnue (#008) est survenue lors de votre connexion à CIPCNet.");
 			
-		}).fail(function() {
+		}).fail(function(jqXHR) {
 			if(!jqXHR.status)
 				error("Un problème est survenu (#007),<br/> êtes-vous connecté à internet ?");
 			else
@@ -252,7 +252,7 @@
 			else
 				error("Une erreur inconnue (#010) est survenue lors de votre connexion au Moodle.");
 			
-		}).fail(function() {
+		}).fail(function(jqXHR) {
 			if(!jqXHR.status)
 				error("Un problème est survenu (#009),<br/> êtes-vous connecté à internet ?");
 			else
@@ -270,7 +270,7 @@
 			else
 				error("Une erreur inconnue (#012) est survenue lors de votre connexion à Zimbra.");
 			
-		}).fail(function() {
+		}).fail(function(jqXHR) {
 			if(!jqXHR.status)
 				error("Un problème est survenu (#011),<br/> êtes-vous connecté à internet ?");
 			else
