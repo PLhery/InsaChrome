@@ -227,7 +227,6 @@
 
 		//On se connecte à CIPCNET
 		$.get("https://login.insa-lyon.fr/cas/login?service=http%3A%2F%2Fcipcnet.insa-lyon.fr%2Flogin_form").done(function (response) { //On demande la page de connexion
-			alert("oui");
 			if($('<div>' + response + '</div>').find("#user-name").length) //Si le nom d'utilisateur est bien affiché sur CIPC (donc il est connecté)
 				chrome.storage.local.set({services: "CIPC"}); //On tick le service CIPC sur la popup
 			else
