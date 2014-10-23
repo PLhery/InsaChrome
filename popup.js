@@ -13,13 +13,13 @@
 					
 					if($('input:checked').length == $('input').length) { //si tous les services sont tickés
 						
+						chrome.storage.local.set({state: "connecté"}) //On passe l'état à connecté
 						
-						chrome.runtime.sendMessage({method: "popupStart"}); //On relance la récupération d'informations
 						
 						$("#services").slideUp()	//On lance l'animation
-						$("#ok").slideDown().css("opacity",1).css("font-size","80px").css("width","150px");;
+						$("#ok").slideDown().css("opacity",1).css("font-size","80px").css("width","150px");
 						$("body").css("background","#92C060");
-						setTimeout(function(){  chrome.storage.local.set({state: "connecté"})  },1000); //On passe l'état à connecté après 1 seconde
+						setTimeout(function(){  chrome.runtime.sendMessage({method: "popupStart"});   }, 1000); //On relance la récupération d'informations après 1 seconde (le temps d'afficher le tick)
 
 			
 						
