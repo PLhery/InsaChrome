@@ -26,12 +26,6 @@ N’hésitez-pas à me faire parvenir vos bugs. (paul-louis.hery@insa-lyon.fr)
 
 ==========
 
-Infos
-
-insaChrome v3.1
-
-==========
-
 JE NE CONNAIS PAS TROP LES EXTENSIONS CHROME, QUE LIRE DANS LE CODE ?
 
 Le fichier manifest.json dit à chaque fichier quoi faire.
