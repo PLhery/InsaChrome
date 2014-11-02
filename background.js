@@ -1,17 +1,21 @@
-	if(!localStorage['s']) { //S'il n'y a pas de clé de cryptage - c'est à dire qu'on est encore à une version ou le mot de passe n'etait pas crypté
-		localStorage['s']=Math.floor(Math.random() * 90000) + 10000 //On en génère une
-		localStorage['passe'] = CryptoJS.AES.encrypt(localStorage['passe'], "1NS4"+localStorage['s']); //et on crypte le mot de passe
-	}
-	
+	// Quand l'extension est installée ou mise à jour
+	chrome.runtime.onInstalled.addListener(function() {
+		if(!localStorage['s']) { //S'il n'y a pas de clé de cryptage - c'est à dire qu'on est encore à une version ou le mot de passe n'etait pas crypté
+			localStorage['s']=Math.floor(Math.random() * 90000) + 10000 //On en génère une
+			localStorage['passe'] = CryptoJS.AES.encrypt(localStorage['passe'], "1NS4"+localStorage['s']); //et on crypte le mot de passe
+		}
+		
+			if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined') //Si les options ne sont pas définies, on les met à leur valeur par défaut.
+				localStorage['insainviteauto']=true;
+			if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
+				localStorage['reseauinsaauto']=true;
+			if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
+				localStorage['formatemploi']="pdf";	
+			if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
+				localStorage['ajoutsemaine']=true;
+	});
 
-	if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined') //Si les options ne sont pas définies, on les met à leur valeur par défaut.
-		localStorage['insainviteauto']=true;
-	if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
-		localStorage['reseauinsaauto']=true;
-	if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
-		localStorage['formatemploi']="pdf";	
-	if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
-		localStorage['ajoutsemaine']=true;
+
 		
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { //Si une page (popup ou content script) nous demande des infos
 		if (request.method == "getInfos") //S'il veut les identifiants
