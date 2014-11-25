@@ -332,7 +332,7 @@
 			  var sugg = []; //Le tableau de suggestions qu'ont va envoyer
 
 
-			if("emploi du temps".indexOf(text.toLowerCase())!=-1) //si ce qu'a tapé l'utilisateur est contenu dans "emploi du temps"
+			if("emploi du temps edtemps".indexOf(text.toLowerCase())!=-1) //si ce qu'a tapé l'utilisateur est contenu dans "emploi du temps edtemps"
 				sugg.push({content: "Emploi du temps", description: "Emploi du temps <dim>Affiche votre emploi du temps de la semaine</dim>"}); //On envoie la suggestion
 
 			if("moodle".indexOf(text.toLowerCase())!=-1)
