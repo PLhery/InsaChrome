@@ -219,9 +219,9 @@
 					});
 				});				
 		}).fail(function(jqXHR) {
-			if(!jqXHR.status)
+			if(!jqXHR.status) {
 				error("Un problème est survenu (#001),<br/> êtes-vous connecté à internet ?");
-			else
+			} else
 				error("Une erreur est survenue sur le site CAS (#016),<br/>"+jqXHR.status+" - "+jqXHR.statusText);
 		})
 
@@ -438,4 +438,9 @@
 
 		});
 	}
+	
+	chrome.tabs.onCreated.addListener(function callback (tab) {
+		if(/*tab.url.indexOf("https://securelogin.arubanetworks.com")==0 || */tab.url.indexOf("https://a6000.insa-lyon.fr/upload/custom/")==0) //Si un nouvel onglet de connexion https s'ouvre
+			chrome.tabs.update(tab.id, {url: "http"+tab.url.substring(5)}); //On le transforme en http pour mieux gérer la connexion.
+	});
   
