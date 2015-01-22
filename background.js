@@ -105,7 +105,7 @@
 					
 					impressions = source.find('td td').first().text()+" / "+source.find('td td:eq(2)').text(); //nombre d'impressions / limite haute
 					
-					if((!source.find('td td').first().text() || !source.find('td td:eq(2)').text() ) && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
+					if((source.find('td td').first().text() == null || source.find('td td:eq(2)').text() == null ) && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
 						connection = true;
 						connect();
 					}
