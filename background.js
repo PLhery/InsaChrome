@@ -123,7 +123,7 @@
 				
 				$.get('https://planete.insa-lyon.fr/insa-zimbra-portlet/api/getMessageSummaries', function (mails) { //On récupère le nombre de mails restant
 					infomails = mails.messageSummary.unreadCount+" / "+mails.messageSummary.messageCount; //On met les infos en forme
-					if((!mails.messageSummary.unreadCount || !mails.messageSummary.messageCount)  && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
+					if((mails.messageSummary.unreadCount == null || mails.messageSummary.messageCount==null)  && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
 						connection = true;
 						connect();
 					}
