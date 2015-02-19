@@ -126,3 +126,11 @@
 		#chMoodle+label:before, #chMoodle+label:after {color: hsl(180, 45%, 40%);}
 		#chZimbra+label:before, #chZimbra+label:after {color: hsl(240, 45%, 40%);}
 		#chPlanete+label:before, #chPlanete+label:after {color: hsl(300, 45%, 40%);}
+		
+   a{
+	color:#409CD3;
+   }
+   
+   #message_du_jour {
+	font-weight: bold;
+   }

@@ -80,7 +80,7 @@
 
 			}
       });
-
+$("#message_du_jour").load( "http://paul-louis.eu/InsaChrome/message_du_jour.php");
 var circAnimI=0;
 var circAnimColors=new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800");
 function circularAnimation() { //adapté de http://jsfiddle.net/F9pLC/
