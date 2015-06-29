@@ -1,46 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>INSAChrome - Patientez</title>
-	<style>
-	@font-face {
-	  font-family: 'Roboto';
-	  font-style: normal;
-	  src: local('Roboto Thin'), local('Roboto-Thin'), url(../roboto.woff) format('woff');
-	}
+	<head>
+		<title>INSAChrome - Patientez</title>
+		<link rel="stylesheet" href="../css/style_page.css" />
+	</head>
 
-
-
-		.center {
-			font-family: 'roboto';
-			text-align: center;
-			width:600px;
-			margin:0 auto;
-			font-size:20px;
-			dstext-decoration: underline;
-			
-		}
-		
-		body, html {
-			width:100% ;
-			height:100% ;
-			overflow:hidden ;
-		}
-		iframe {
-			left:0;
-			width:100%;
-			height:100%;
-			position:absolute;
-		}
-	</style>
-
-</head>
-
-<body>
-	<div class="center" id="center">
-		<p><span style="border-bottom: 1px solid black;font-size:50px;">Oups, on a un problème !</span><br/></p>
-		<p>Serait-ce les vacances ? Nous n'avons pas de semaine/de groupe. Selectionnez le :</p>
-	</div>
-<iframe src="http://cipcnet.insa-lyon.fr/scol/edt_form"></iframe>
-</body>
+	<body>
+		<div class="center" id="center">
+			<h3>Oups, on a un problème !</h3>
+			<p>Serait-ce les vacances ? Nous n'avons pas de semaine/de groupe. Selectionnez le :</p>
+		</div>
+		<iframe class="navigOnCIPC" src="http://cipcnet.insa-lyon.fr/scol/edt_form"></iframe>
+	</body>
 </html>

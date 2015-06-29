@@ -1,35 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>INSAChrome - Patientez</title>
-	<style>
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(../roboto.woff) format('woff');
-}
+	<head>
+		<title>INSAChrome - Patientez</title>
+		<link rel="stylesheet" href="../css/style_page.css" />
+	</head>
 
-
-
-		.center {
-			font-family: 'roboto';
-			text-align: center;
-			width:600px;
-			margin:0 auto;
-			font-size:20px;
-			dstext-decoration: underline;
-			
-		}
-	</style>
-
-</head>
-
-<body>
-	<div class="center" id="center">
-		<p><span style="border-bottom: 1px solid black;font-size:50px;">Patientez..</span><br/></p>
-		<p>Votre emploi du temps ne s'est pas chargé : vous semblez déconnecté de CIPCnet.</p><p> Tentative de <span id="service">connexion...</span></p>
-		<iframe style="height:200px;width:220px;" frameBorder="0" src="../popup.html"></iframe>
-	</div>
-	<script src="connexion.js"></script>
-</body>
+	<body>
+		<div class="center" id="center">
+			<h3>Patientez..</h3>
+			<p>Votre emploi du temps ne s'est pas chargé : vous semblez déconnecté de CIPCnet.</p><p> Tentative de <span id="service">connexion...</span></p>
+			<iframe class="connect" frameBorder="0" src="../popup.html"></iframe>
+		</div>
+		<script src="connexion.js"></script>
+	</body>
 </html>
