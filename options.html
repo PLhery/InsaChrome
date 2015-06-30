@@ -1,66 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>INSAChrome - configuration</title>
-	<link rel="stylesheet" href="css/style_page.css" />
-</head>
+	<head>
+		<title>INSAChrome - configuration</title>
+		<link rel="icon" type="image/png" href="content/icon48.png" />
+		<link rel="stylesheet" href="css/style_page.css" />
+	</head>
 
-<body>
-	<div class="center" id="center">
-		<h3>Parametrez InsaChrome</h3>
-		<p> <br/></p>
-		
-		<p class="infos">Pour pouvoir vous connecter à Insa-invité, cipcnet et tout autre site INSA, 
-			il vous faut renseigner vos identifiants. Ne vous inquiétez-pas, ils sont stockés sur votre ordinateur, et ne sont transmis qu'aux sites INSA
-		</p>
-		
-		<div class="bloc">
-			<hr class="infos"/>
-			<label for="nom">Pseudo INSA :</label> <input class="form1" type="text" name="nom" id="nom"/><br/>
-			<label for="passe">Mot de passe :</label> <input class="form1" type="password" name="passe" id="passe"/><br/>
-			<hr class="infos"/>
+	<body>
+		<div class="content-wrapper">
+			<h1>Parametrez InsaChrome</h1>
+			<div class="center" id="center">
+				<p class="infos">Pour pouvoir vous connecter à Insa-invité, cipcnet et tout autre site INSA, 
+					il vous faut renseigner vos identifiants. Ne vous inquiétez-pas, ils sont stockés sur votre ordinateur, et ne sont transmis qu'aux sites INSA
+				</p>
+				
+				<div class="bloc">
+					<label for="nom">Pseudo INSA :</label> <input class="form1" type="text" name="nom" id="nom"/><br/>
+					<label for="passe">Mot de passe :</label> <input class="form1" type="password" name="passe" id="passe"/><br/>
+				</div>
+				
+				<p class="infos">Ensuite, sachez que, dès que la page de connexion d'INSA-invité apparaîtra, (et que vous aurez passé l'éventuelle erreur), le plugin remplira tout seul le formulaire.<br/>
+					De plus, si aucune connexion n'a été faite par le plugin depuis deux heures, il se reconnectera aux sites INSA.<br/>
+					Vous pouvez désactiver l'une de ces fonctions ici :
+				</p>
+				
+				<div class="bloc">
+					<input type="checkbox" name="insainviteauto" id="insainviteauto" /><label for="insainviteauto">Connexion automatique à insa-invité</label><br/>
+					<input type="checkbox" name="reseauinsaauto" id="reseauinsaauto" /><label for="reseauinsaauto">Connexion automatique aux sites insa</label><br/>
+				</div>
+				
+				<p class="infos">Finalement, sachez qu'en tapant dans la barre d'adresse "i", puis espace, puis une lettre, une liste de choix vous sera proposé. 
+					Parmis elle l'emploi du temps. Essayez-donc les deux formats possibles.
+				</p>
+				
+				<div class="bloc">
+					<label for="formatemploi">Format de l'emploi du temps :</label><select name="formatemploi" id="formatemploi"><option value="html">Normal (HTML)</option> <option value="pdf" selected>PDF</option></select><br/>
+				</div>
+				
+				<p class="infos">Le week-end, CIPC selectionne la semaine qui vient de passer. 
+					En cochant la case suivante, taper "i emploi du temps" charge la semaine d'après.
+				</p>
+				
+				<div class="bloc">
+					<input type="checkbox" name="ajoutsemaine" id="ajoutsemaine" /><label for="ajoutsemaine">Le week-end, charger l'emploi du temps de la semaine suivante.</label><br/>
+				</div>
+				
+				<img class="infos" id="picBatman" src="../content/batman.gif" alt="Gif de batman" />
+				
+			</div>
+			
+			<span class="navButton"><a href="about.html" id="apropos">A propos</a></span>
+			<span class="navButton"><a href="functions.html">Fonctionalités</a></span>
+			<span class="navButton"><a href="#" id="plusinfos">Indications sur les options</a></span>
 		</div>
-		
-		<p class="infos">Ensuite, sachez que, dès que la page de connexion d'INSA-invité apparaîtra, (et que vous aurez passé l'éventuelle erreur), le plugin remplira tout seul le formulaire.<br/>
-			De plus, si aucune connexion n'a été faite par le plugin depuis deux heures, il se reconnectera aux sites INSA.<br/>
-			Vous pouvez désactiver l'une de ces fonctions ici :
-		</p>
-		
-		<div class="bloc">
-			<hr class="infos"/>
-			<input type="checkbox" name="insainviteauto" id="insainviteauto" /><label for="insainviteauto">Connexion automatique à insa-invité</label><br/>
-			<input type="checkbox" name="reseauinsaauto" id="reseauinsaauto" /><label for="reseauinsaauto">Connexion automatique aux sites insa</label><br/>
-			<hr class="infos"/>
-		</div>
-		
-		<p class="infos">Finalement, sachez qu'en tapant dans la barre d'adresse "i", puis espace, puis une lettre, une liste de choix vous sera proposé. 
-			Parmis elle l'emploi du temps. Essayez-donc les deux formats possibles.
-		</p>
-		
-		<div class="bloc">
-			<hr class="infos"/>
-			<label for="formatemploi">Format de l'emploi du temps :</label><select name="formatemploi" id="formatemploi"><option value="html">Normal (HTML)</option> <option value="pdf" selected>PDF</option></select><br/>
-			<hr class="infos"/>
-		</div>
-		
-		<p class="infos">Le week-end, CIPC selectionne la semaine qui vient de passer. 
-			En cochant la case suivante, taper "i emploi du temps" charge la semaine d'après.
-		</p>
-		
-		<div class="bloc">
-			<hr class="infos"/>
-			<input type="checkbox" name="ajoutsemaine" id="ajoutsemaine"><label for="ajoutsemaine">Le week-end, charger l'emploi du temps de la semaine suivante.</label></input><br/>
-			<hr class="infos"/>
-		</div>
-		
-		<img class="infos" id="picBatman" src="batman.gif" alt="Gif de batman" />
-		<span class="navButton"><a href="about.html" id="apropos">A propos</a></span>
-		<span class="navButton"><a href="#" id="plusinfos">Indications sur les options</a></span>
-	</div>
 
-	<script type='text/javascript' src='jquery-2.1.1.min.js'></script>
-	<script type='text/javascript' src='aes.js'></script>
-	<script src="options.js"></script>
-	
-</body>
+		<script type='text/javascript' src='jquery-2.1.1.min.js'></script>
+		<script type='text/javascript' src='aes.js'></script>
+		<script src="options.js"></script>
+		
+	</body>
 </html>

@@ -1,52 +1,85 @@
+/*===========================================
+**==== Code lié à la page "options.html" ====
+**===========================================*/
+
+/*Ici, on créer un objet nommé localStorage qui représente un utilisateur et les options qu'il a choisit :
+**localStorage[nom, passe, insainviteauto, reseauinsaauto, formatemploi, ajoutsemaine]
+*/
 
 if(!localStorage['nom'] | localStorage['nom'] == 'undefined') //On initialise les options si rien n'est rentré
-	localStorage['nom']="";
+	localStorage['nom'] = "";
 if(!localStorage['passe'] | localStorage['passe'] == 'undefined')
-	localStorage['passe']="";
+	localStorage['passe'] = "";
 if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined')
-	localStorage['insainviteauto']=true;
+	localStorage['insainviteauto'] = true;
 if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
-	localStorage['reseauinsaauto']=true;
+	localStorage['reseauinsaauto'] = true;
 if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
-	localStorage['formatemploi']="pdf";
+	localStorage['formatemploi'] = "pdf";
 if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
-	localStorage['ajoutsemaine']=true;
+	localStorage['ajoutsemaine'] = true;
 
-document.getElementById('nom').value=localStorage['nom']; //On remplit les cases avec les valeurs
-document.getElementById('passe').value=CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8);
-document.getElementById('insainviteauto').checked=(localStorage['insainviteauto']=="true");
-document.getElementById('reseauinsaauto').checked=(localStorage['reseauinsaauto']=="true");
-document.getElementById('formatemploi').value=localStorage['formatemploi'];
-document.getElementById('ajoutsemaine').checked=(localStorage['ajoutsemaine']=="true");
+/*
+** La zone qui reremplit les formulaires avec ce qui avait été remplit précédemment au chargement de la page
+** En clair, ce qui est contenu dans local storage vient s'afficher sur la page
+*/
+	
+document.getElementById('nom').value = localStorage['nom']; //On remplit les cases avec les valeurs
+document.getElementById('passe').value = CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8);
+document.getElementById('insainviteauto').checked = (localStorage['insainviteauto']=="true");
+document.getElementById('reseauinsaauto').checked = (localStorage['reseauinsaauto']=="true");
+document.getElementById('formatemploi').value = localStorage['formatemploi'];
+document.getElementById('ajoutsemaine').checked = (localStorage['ajoutsemaine']=="true");
 
-document.getElementById('nom').onkeyup=enregistrer; //Si on fait une action sur les formulaires, enregistrer les modifications
-document.getElementById('passe').onkeyup=enregistrer;
-document.getElementById('insainviteauto').onclick=enregistrer;
-document.getElementById('reseauinsaauto').onclick=enregistrer;
-document.getElementById('formatemploi').onchange=enregistrer;
-document.getElementById('ajoutsemaine').onchange=enregistrer;
-		
-		
+/*
+** Changement "on the spot" : dès qu'on touche un élément du formulaire, il s'enregistre
+*/
+
+document.getElementById('nom').onkeyup = enregistrer; //Si on fait une action sur les formulaires, enregistrer les modifications
+document.getElementById('passe').onkeyup = enregistrer;
+document.getElementById('insainviteauto').onclick = enregistrer;
+document.getElementById('reseauinsaauto').onclick = enregistrer;
+document.getElementById('formatemploi').onchange = enregistrer;
+document.getElementById('ajoutsemaine').onchange = enregistrer;
+
+
+
+
 function enregistrer()
 	{
-		localStorage['s']=Math.floor(Math.random() * 90000) + 10000 //On regénère la clé de cryptage
-		localStorage['nom']=document.getElementById('nom').value;
-		localStorage['passe']=  CryptoJS.AES.encrypt(document.getElementById('passe').value, "1NS4"+localStorage['s']); //On enregistre toutes les infos dans le localStorage
-		localStorage['insainviteauto']=document.getElementById('insainviteauto').checked;
-		localStorage['reseauinsaauto']=document.getElementById('reseauinsaauto').checked;
-		localStorage['formatemploi']=document.getElementById('formatemploi').value;
-		localStorage['ajoutsemaine']=document.getElementById('ajoutsemaine').checked;
+		localStorage['s'] = Math.floor(Math.random() * 90000) + 10000 //On regénère la clé de cryptage
+		localStorage['nom'] = document.getElementById('nom').value;
+		localStorage['passe'] =  CryptoJS.AES.encrypt(document.getElementById('passe').value, "1NS4"+localStorage['s']); //On enregistre toutes les infos dans le localStorage
+		localStorage['insainviteauto'] = document.getElementById('insainviteauto').checked;
+		localStorage['reseauinsaauto'] = document.getElementById('reseauinsaauto').checked;
+		localStorage['formatemploi'] = document.getElementById('formatemploi').value;
+		localStorage['ajoutsemaine'] = document.getElementById('ajoutsemaine').checked;
 	}
-var infst = 0;
 
+/*
+** Gestion de l'affichage des informations sur comment remplir le formulaire
+*/
+
+var infst = 0;
 document.getElementById('plusinfos').onclick = function () { //Si on clique sur plus d'infos
 	var infos = document.getElementsByClassName('infos'); //On affiche les élements cachés (de classe "infos")
 	for (var i = 0; i < infos.length; i ++) {
 		infos[i].style.display = (infst)?'none':'block';
 	}
-	infst=1-infst;
+	var blocs = document.getElementsByClassName('bloc');
+	for (var i = 0; i < blocs.length; i++) {
+		if(infst){
+			blocs[i].setAttribute('style', "box-shadow: 0px 0px 0px");
+		}else{
+			blocs[i].setAttribute('style', "box-shadow: 0px 0px 3px #4CA6FF;padding:5px;");
+		}
+	}
+	infst = 1 - infst; //Subtilité algorythmique quand tu nous tiens
 }
 
+/*
+** Easter egg quand on presse les touches I,N,S,A
+*/
 
 var k = [73,78,83,65]; //Les lettres I,N,S,A
 n = 0;  

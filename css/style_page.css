@@ -1,3 +1,8 @@
+
+/*=================================================
+  ================ GENERAL ========================
+  =================================================*/
+  
 /********** Insertion des polices du site **********/
 
 @font-face {
@@ -6,8 +11,11 @@
 	  src: local('Roboto'), local('Roboto Thin'), local('Roboto-Thin'), url(../fonts/roboto.woff) format('woff');
 }
 
+/********** Gestion du global **********/
+
 body, html 
 {
+	background-color: rgb(248,248,255);
 	margin-top: 0px;
 	width: 100% ;
 	height: 100% ;
@@ -17,8 +25,9 @@ body, html
 
 /********** Gestion de la section centrale **********/
 
-.center 
+.content-wrapper
 {
+	background-color: white;
 	padding: 40px;
 	font-family: 'roboto';
 	text-align: center;
@@ -27,7 +36,30 @@ body, html
 	margin-top: 50px;
 	margin-bottom: 50px;
 	font-size:20px;
-	box-shadow: 0px 0px 1px grey;
+	border-radius: 3px;
+	box-shadow: 0px 0px 5px grey;
+	dstext-decoration: underline;
+}
+
+.center 
+{
+	font-family: 'roboto';
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	font-size:20px;
+	dstext-decoration: underline;
+}
+
+.centerFunc
+{
+	font-family:'roboto';
+	text-align: left;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	font-size:20px;
 	dstext-decoration: underline;
 }
 
@@ -49,12 +81,24 @@ iframe.connect
 
 /********** Gestion des titres **********/
 
-h3
+h1
 {
+	font-family: 'roboto', Arial, sans-serif;
+	text-align: center;
 	display: inline;
 	border-bottom: 1px solid black;
 	font-weight: normal;
 	font-size: 50px;
+}
+
+h2
+{
+	padding-left: 40px;
+	font-family: 'roboto', Arial, sans-serif;
+	text-align: left;
+	display: inline;
+	font-weight: bold;
+	font-size: 30px;
 }
 
 /********** Affichage des boutons de changement de page **********/
@@ -143,7 +187,31 @@ select
 	font-size: 100%;
 }
 
+/********** Tableau de commandes **********/
 
+.tab-command
+{
+	margin: auto;
+	padding:10px;
+}
+
+.tab-command  thead
+{
+	background-color: rgb(240,100,70);
+	font-weight: bold;
+	color: white;
+	padding: 10px;
+}
+
+.l-pair
+{
+	background-color: rgba(200,200,255,0.2);
+}
+
+.l-impair
+{
+	background-color: rgba(200,200,255,0.4);
+}
 
 
 

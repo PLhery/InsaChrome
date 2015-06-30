@@ -1,0 +1,277 @@
+/*=================================================
+  ====== POPUP : blue style =======================
+  =================================================*/
+
+
+/********** Insertion des polices de la popup **********/
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	src: local('Roboto Thin'), local('Roboto-Thin'), url(../fonts/roboto.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Montserrat-Regular'), url(../fonts/Montserrat.woff) format('woff');
+}
+
+/********** Gestion du global **********/
+
+body {
+	width: 400px;
+	background: url(../content/popup_background.png);
+	z-index: 0;
+	margin: 0px;
+	height : auto;
+	border-radius : 0px 0px 5px 5px;
+	border: 1px solid rgba(180,180,240,0.3);
+}
+
+.infos
+{
+	font-family: 'Roboto', Arial, sans-serif;
+	font-size: 16px;
+	margin: 0px auto;
+	text-align:center;
+}
+
+/********** Pied de page **********/
+
+footer
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+#param, #about
+{
+	display: inline-block;
+	font-family: 'Roboto', Arial, sans-serif;
+	font-size: 16px;
+	padding: 0px; 
+	margin: 0px;
+	text-align: center;
+	background-color: rgba(180,180,240,0.4);
+}
+
+#param:hover, #about:hover
+{
+	font-family: 'Roboto', Arial, sans-serif;
+	font-size: 16px;
+	padding: 0px; 
+	margin: 0px;
+	text-align: center;
+	background-color: rgba(180,180,240,0.3);
+}
+
+#param
+{
+	width: 198px;
+	border-radius: 1px 0px 0px 5px;
+}
+
+#about
+{
+	width: 198px;
+	border-radius: 0px 0px 5px 0px;
+}
+
+/********** Chargement **********/
+
+#wait{
+	height: 100px;	width: 400px;
+	line-height: 100px;
+	font-family: Montserrat;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	opacity: 1;
+	overflow: hidden;
+	position: relative;
+	background: orange;
+	z-index:-2;
+}
+
+.circle {
+	position: absolute;
+	box-shadow: 0px 0px 150px rgb(250,250,250);
+	z-index: -1;
+}
+
+#erreur
+{
+	display: none;
+	width: 400px;
+	background-color:;
+}
+
+#erreurBoite
+{
+	min-height: 100px;
+	font-family: Roboto;
+	font-size:15px;
+	color: white;
+	text-align: center;
+	width: 400px;
+}
+
+#message 
+{
+	display: inline-block; 
+	vertical-align: middle; 
+	text-align: center; 
+}
+
+/********** Petits blocks de textes **********/
+
+#informations
+{
+	display: none;
+	margin-top: 15px;
+}
+
+.divInfo
+{
+	margin:0px;
+	
+	margin-bottom: 10px;
+	font-size: 20px;
+}
+
+.reco-balance 
+{
+	color: #4CA6FF;
+	background-color: white;
+	padding: 1pt 5pt;
+	margin: 10px;
+	font-weight: bold;
+	font-size: 20px;
+	box-shadow: 0px 0px 2px grey;
+	border-radius: 3px;
+}
+
+/********** Connecté en tant que **********/
+
+#photo
+{
+	width: 50px;
+	border: 2px groove white;
+	box-shadow: 1px 1px 2px grey;
+}
+
+/********** Les trucs en plus **********/
+.adds
+{
+	display: none;
+	font-family: 'Roboto', Arial, sans-serif;
+	font-size:18px;
+	margin: 20px auto;
+	text-align:center;
+}
+/*Radio Gatsun*/
+
+#Gatsun
+{
+	margin: 10px;
+}
+
+/********** Ok **********/
+
+#ok
+{
+	display:none;
+	height:100px;
+	font-family: fontello;
+	font-size:20px;
+	color:white;
+	text-align:center;
+	line-height: 100px;
+	width:200px;
+	opacity:0;
+	transition: opacity 3s, font-size 1s,width 2s;
+}
+
+#message_du_jour {
+	font-weight: bold;
+}
+
+/********** Checkbox **********/
+/*checkbox animés - inspiré de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
+
+#services
+{
+	display: none;
+}
+
+.connect
+{
+	font-family: 'Roboto';
+	font-size:20px;
+	margin:0;
+	width:300px;
+}
+
+label 
+{
+	position: relative;
+	padding-left: 30px;
+	font-size: 14px;
+	cursor: pointer;
+	font-family: 'Montserrat';
+}
+
+label:before, label:after
+{
+	font-family: fontello;
+	font-size: 21px;
+	position: absolute; top: 0; left: 0;
+}
+
+label:before /*unchecked*/
+{
+	content: '\f096'; 
+}
+
+label:after	/*checked*/
+{
+	content: '\e801'; 
+	max-width: 0;
+	opacity: 0.3;
+	overflow: hidden;
+	transition: all 0.4s;
+}
+
+input[type="checkbox"]
+{
+	display: none;
+}
+input[type="checkbox"]:checked + label:after
+{
+	max-width: 25px;
+	opacity: 1; /*for fade in effect*/
+}
+
+#chInvite+label:before, #chInvite+label:after {color: hsl(0, 45%, 40%);}
+#chCAS+label:before, #chCAS+label:after {color: hsl(60, 45%, 40%);}
+#chCIPC+label:before, #chCIPC+label:after {color: hsl(120, 45%, 40%);}
+#chMoodle+label:before, #chMoodle+label:after {color: hsl(180, 45%, 40%);}
+#chZimbra+label:before, #chZimbra+label:after {color: hsl(240, 45%, 40%);}
+#chPlanete+label:before, #chPlanete+label:after {color: hsl(300, 45%, 40%);}
+
+/********** Affichage des liens **********/
+
+a
+{
+	color:#4CA6FF;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color:#ACA6FF;
+}
+   
