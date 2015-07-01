@@ -1,84 +1,89 @@
-	// Quand l'extension est installée ou mise à jour
-	chrome.runtime.onInstalled.addListener(function() {
-		if(!localStorage['s']) { //S'il n'y a pas de clé de cryptage - c'est à dire qu'on est encore à une version ou le mot de passe n'etait pas crypté
-			localStorage['s']=Math.floor(Math.random() * 90000) + 10000 //On en génère une
-			localStorage['passe'] = CryptoJS.AES.encrypt(localStorage['passe'], "1NS4"+localStorage['s']); //et on crypte le mot de passe
-		}
-		
-			if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined') //Si les options ne sont pas définies, on les met à leur valeur par défaut.
-				localStorage['insainviteauto']=true;
-			if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
-				localStorage['reseauinsaauto']=true;
-			if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
-				localStorage['formatemploi']="pdf";	
-			if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
-				localStorage['ajoutsemaine']=true;
-	});
+/*===========================================
+**==== Code du background de l'extension ====
+**===========================================*/
 
 
-		
-	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { //Si une page (popup ou content script) nous demande des infos
-		if (request.method == "getInfos") //S'il veut les identifiants
-		  sendResponse({passe: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), nom: localStorage['nom'], insainviteauto: localStorage['insainviteauto'], autoconnect: localStorage['reseauinsaauto']}); //les voila
-		  
-		else if(request.method == "connect") { //S'il veut qu'on se connecte
-			connect(); //VoiliVoilou
-		}
-		else if(request.method == "timetable") { //S'il veut qu'on charge l'emploi du temps ("i emploi du temps")
+
+/** ============ Codé exécuté à l'installatio ou à la MAJ de InsaChrome ============ **/
+
+chrome.runtime.onInstalled.addListener(function() {
+	if(!localStorage['s']) { //S'il n'y a pas de clé de cryptage - c'est à dire qu'on est encore à une version ou le mot de passe n'etait pas crypté
+		localStorage['s'] = Math.floor(Math.random() * 90000) + 10000 //On en génère une
+		localStorage['passe'] = CryptoJS.AES.encrypt(localStorage['passe'], "1NS4" + localStorage['s']); //et on crypte le mot de passe
+	}
+	
+	if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined') //Si les options ne sont pas définies, on les met à leur valeur par défaut.
+		localStorage['insainviteauto'] = true;
+	if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
+		localStorage['reseauinsaauto'] = true;
+	if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
+		localStorage['formatemploi'] = "pdf";
+	if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
+		localStorage['ajoutsemaine'] = true;
+});
+
+
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { //Si une page (popup ou content script) nous demande des infos
+	if (request.method == "getInfos"){ //S'il veut les identifiants
+		sendResponse({passe: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), nom: localStorage['nom'], insainviteauto: localStorage['insainviteauto'], autoconnect: localStorage['reseauinsaauto']}); //les voila
+	}
+	else if(request.method == "connect") { //S'il veut qu'on se connecte
+		connect(); //VoiliVoilou
+	}
+	else if(request.method == "timetable") { //S'il veut qu'on charge l'emploi du temps ("i emploi du temps")
 			LoadTimetable();				  
-		}
-		else if(request.method == "reload") { //S'il veut qu'on actualise les pages INSA
-				  chrome.tabs.query({url : "*://*.insa-lyon.fr/*"}, function(tabs) {
-						tabs.forEach(function(tab) {
-						   chrome.tabs.reload(tab.id);
-						});
-				  });					  
-		}
-		else if(request.method == "popupStart") { //Si la popup vient de se démarrer
+	}
+	else if(request.method == "reload") { //S'il veut qu'on actualise les pages INSA
+		chrome.tabs.query({url : "*://*.insa-lyon.fr/*"}, function(tabs) {
+															tabs.forEach(function(tab) {
+																chrome.tabs.reload(tab.id);
+																		});
+															});					  
+	}
+	else if(request.method == "popupStart") { //Si la popup vient de se démarrer
 		getInformations(); //On récupère lance la récupération d'informations (qui peut aboutir à une demande de connexion)
-		}
-		else  //Sinon on renvoie rien.
-		  sendResponse({});
-	});
+	}
+	else  //Sinon on renvoie rien.
+		sendResponse({});
+});
 
-	function getInformations() { //Le but est de récupérer toutes les informations, et que si une ne va pas, on lance la connexion
+/** ====== Fonctions ====== */
 
-				var solde1=false;//On n'a aucune info
-				var solde2=false;
-				var infomails=false;
-				var infonom = false;
-				var infoto = false;
-				var connection = false;
-				var impressions = false;
-				var rang=false;
-				
-				$.get('https://planete.insa-lyon.fr/uPortal/f/u23l1s5/normal/render.uP', function (response) { //On récupère les infos sur le solde
-					var source = $('<div>' + response + '</div>');
-					
-					solde1 = source.find('.reco-balance:eq(0)').text();
-					solde2 = source.find('.reco-balance:eq(1)').text(); //On les lit
+//Récupère toute les informations une à une
+function getInformations() {
+	var solde1 = false;//On n'a aucune info
+	var solde2 = false;
+	var infomails = false;
+	var infonom = false;
+	var infoto = false;
+	var connection = false;
+	var impressions = false;
+	var rang = false;
 
-					if(!solde2 && source.find('.reco-background').text()) { //Si on a pas de solde (ex l'etudiant n'est pas au self), écrire n/a
-						solde1 = solde2 = "n/a €";
-					}
-					
-					if(!solde2 && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
-						connection = true;
-						connect();
-					}
-					
-					if(solde1 && solde2 && infonom && infoto && infomails && impressions) //Si on a toutes les infos (si c'etait le dernier qu'on attendait), on les envoie
-						envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions, rang);
-						
+	$.get('https://planete.insa-lyon.fr/uPortal/f/u23l1s5/normal/render.uP', function (response) { //On récupère les infos sur le solde
+						var source = $('<div>' + response + '</div>');
+
+						solde1 = source.find('.reco-balance:eq(0)').text();
+						solde2 = source.find('.reco-balance:eq(1)').text(); //On les lit
+
+						if(!solde2 && source.find('.reco-background').text()) { //Si on a pas de solde (ex l'etudiant n'est pas au self), écrire n/a
+							solde1 = solde2 = "n/a €";
+						}
+
+						if(!solde2 && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
+							connection = true;
+							connect();
+						}
+
+						if(solde1 && solde2 && infonom && infoto && infomails && impressions) //Si on a toutes les infos (si c'etait le dernier qu'on attendait), on les envoie
+							envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions, rang);
 				}).fail(function() { //Si on a un problème, on lance la connexion
 							if(!connection) {
 								connection = true;
 								connect();
 							}
-						  });	
-				
-
-
+						  });
 
 				/* Récupérait les infos sur l'admission. Plus à afficher
 				$.get('http://cipcnet.insa-lyon.fr/scol/bulletin_eleve', function (response) {
@@ -158,7 +163,7 @@
 							}
 						  });
 
-	}
+}
 	
 	function envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions, rang) { //Envoi les infos sur la personne à la popup
 		chrome.storage.local.set({infos: new Array(

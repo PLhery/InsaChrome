@@ -11,8 +11,8 @@
 		},
 	"background": 
 		{
-			"scripts": [ "jquery-2.1.1.min.js", "aes.js", "background.js" ],
-			"persistent": false
+			"page":"background.html",
+			"persistent": true
 		},
 	"browser_action": 
 		{

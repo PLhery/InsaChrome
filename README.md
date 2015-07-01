@@ -24,6 +24,8 @@ Pour le paramétrer : clic droit sur le bouton d'action, options.
 
 N’hésitez-pas à me faire parvenir vos bugs. (paul-louis.hery@insa-lyon.fr)
 
+En ce qui concerne l'apparence et fonctionnalités bonus n'hésitez pas à prévenir Johnny qui est en train de donner de la souplesse à l'usage de l'extension(quentin.guye@insa-lyon.fr)
+
 ==========
 
 JE NE CONNAIS PAS TROP LES EXTENSIONS CHROME, QUE LIRE DANS LE CODE ?

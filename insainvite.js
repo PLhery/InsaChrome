@@ -1,3 +1,8 @@
+/*===========================================
+**= Remplit les identifiants de connection ==
+**===========================================*/
+
+
 //injecté dans la page de connexion insainvité (la popup centrale)
 chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récupère les infos de connexion
 	if(response['insainviteauto'] == "true") { //Si l'utilisateur a activé la connexion automatique à insa-invité 
@@ -10,8 +15,5 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 			evObj.initEvent("click", true, false); 
 			document.getElementsByName("submit")[0].dispatchEvent(evObj); //On simule un clic sur le bouton envoyer
 		}
-
-
-			
 	}
 });

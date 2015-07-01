@@ -3,7 +3,7 @@
 	<head>
 		<title>InsaChrome</title>
 		<link rel="stylesheet" type="text/css" href="fonts/fontello/css/fontello-embedded.css">
-		<link rel="stylesheet" type="text/css" href="css/popup.css">
+		<link id="stylePopup" rel="stylesheet" type="text/css" href="css/popup.css">
 	</head>
 
 	<body>
@@ -21,27 +21,42 @@
 			<div class="divInfo">
 				<p class="infos">Quota d'impressions :<span class="reco-balance" id="impressions">... / 200</span></p>
 			</div>
-			<div class="divInfo">
-				<p class="infos"><a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >
-				Solde :<span class="reco-balance"  id="solde">... €</span></a></p>
-			</div>
-			<div class="divInfo">
-				<p class="infos"><a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >
-				Solde forfait :<span class="reco-balance"  id="soldeforfait">... €</span></a></p>
+			<div id="bloc-solde">
+				<div class="divInfo">
+					<p class="infos"><a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >
+					Solde :<span class="reco-balance"  id="solde">... €</span></a></p>
+				</div>
+				<div class="divInfo">
+					<p class="infos"><a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >
+					Solde forfait :<span class="reco-balance"  id="soldeforfait">... €</span></a></p>
+				</div>
 			</div>
 			<div id="message_du_jour" class="infos"></div>
-			<!--p class = "infos"><span class="reco-balance" id="admission" style="background-color:green">...???</span></p><br/     (admission)-->
+			<!--div class="divInfo">
+				<p class = "infos"><span class="reco-balance" id="admission" style="background-color:green">...???</span></p>
+			</div-->
 			
 		</div>	
 		
-		<div class="adds">
-			<p id="Gatsun">
-				Radio Gatsun
-				<audio controls="controls">
-					<!--source src="http://dust.galadruin.fr:8000/Gatsun" type="audio/mpeg" /-->
-					<embed height="34" width="250" src="http://dust.galadruin.fr:8000/Gatsun" />
-				</audio>
+		<div class="adds" id="adds">
+			<a href="radioGatsun.html" target="_blank"><img class="icon-add" id="img-Gatsun" src="content/Adds/gatsun.jpg" alt="Radio Gatsun" title="Radio Gatsun" /></a>
+			<p class="add-elem" id="Gatsun">
+				<span id="txt-Gatsun">Radio Gatsun</span>
 			</p>
+			<a href="http://artscene-asso.fr/" target="_blank"><img class="icon-add" id="img-artscene" src="content/Adds/art-scene.jpg" alt="photo Art-scène" title="Art-scène" /></a>
+			<p class="add-elem" id="artscene"></p>
+			<a href="http://moodle2.insa-lyon.fr/" target="_blank"><img class="icon-add" id="img-moodle" src="content/Adds/moodle.png" alt="photo moodle" title="Moodle" /></a>
+			<!--img class="icon-add" id="img-notes" src="content/Adds/20sur20.png" alt="photo des notes" title="Cliquez pour afficher les notes" />
+			<p class="add-elem" id="notes">
+				<span id="txt-notes">Notes</span>
+				<table class="tabnote" id="tabnote">
+					<thead>
+						<tr>
+							<td>Matière</td><td>Moyenne</td>
+						</tr>
+					</thead>
+				</table>
+			</p-->
 		</div>
 		
 		<div id="services">
@@ -58,10 +73,6 @@
 			<input type="checkbox" name="chZimbra" id="chZimbra" /><label for="chZimbra">Zimbra</label>
 			<br/>
 			<input type="checkbox" name="chPlanete" id="chPlanete" /><label for="chPlanete">Planète</label>
-		</div>
-		
-		<div id="ok">
-			&#59392;-
 		</div>
 		
 		<div id="wait">

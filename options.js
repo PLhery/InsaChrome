@@ -42,8 +42,9 @@ document.getElementById('reseauinsaauto').onclick = enregistrer;
 document.getElementById('formatemploi').onchange = enregistrer;
 document.getElementById('ajoutsemaine').onchange = enregistrer;
 
-
-
+/*
+** A chaque appel de la fonction enregistrer, toute les formulaires de la page sont stockés dans storage.
+*/
 
 function enregistrer()
 	{

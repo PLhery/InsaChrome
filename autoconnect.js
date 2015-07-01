@@ -28,10 +28,6 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 		}
 
 
-
-
-
-
 		function connexionLien(element, service, url) { //animation de connexion sur les liens
 
 				chrome.storage.local.set({erreur: ""}); //Au début, pas d'erreur

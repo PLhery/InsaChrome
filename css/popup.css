@@ -28,6 +28,7 @@ body {
 	height : auto;
 	border-radius : 0px 0px 5px 5px;
 	border: 1px solid rgba(180,180,240,0.3);
+
 }
 
 .infos
@@ -103,15 +104,17 @@ footer
 
 #erreur
 {
+	font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
 	display: none;
 	width: 400px;
-	background-color:;
+	background-color: rgba(90,150,220,0.8);
+	z-index: 1;
 }
 
 #erreurBoite
 {
 	min-height: 100px;
-	font-family: Roboto;
+	font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
 	font-size:15px;
 	color: white;
 	text-align: center;
@@ -157,9 +160,10 @@ footer
 
 #photo
 {
-	width: 50px;
+	height: 90px;
 	border: 2px groove white;
 	box-shadow: 1px 1px 2px grey;
+	background-color: white;
 }
 
 /********** Les trucs en plus **********/
@@ -171,11 +175,36 @@ footer
 	margin: 20px auto;
 	text-align:center;
 }
+
+.icon-add
+{
+	height: 50px;
+	display: inline-block;
+	vertical-align: top;
+	margin: 20px;
+	border-radius: 5px;
+	border: 2px solid white;
+	box-shadow: 0px 0px 2px grey;
+	text-align: left;
+}
+
+.icon-add:hover
+{
+	box-shadow: 0px 0px 3px black;
+}
+
 /*Radio Gatsun*/
 
-#Gatsun
+.add-elem
 {
+	display: none;
+	font-weight: bold;
 	margin: 10px;
+}
+
+.tabnote
+{
+	display: none;
 }
 
 /********** Ok **********/
