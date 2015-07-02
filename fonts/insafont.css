@@ -1,0 +1,20 @@
+/* Fonts de l'insa*/
+
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Anton'), url(http://fonts.gstatic.com/s/anton/v6/tilmJBBU81h1G7ZsdY3Hmw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Archivo Narrow';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Archivo Narrow Regular'), local('ArchivoNarrow-Regular'), url(http://fonts.gstatic.com/s/archivonarrow/v5/DsLzC9scoPnrGiwYYMQXphdbPw3QSf9R-kE0EsQUn2A.woff) format('woff');
+}
+@font-face {
+  font-family: 'Archivo Narrow';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Archivo Narrow Bold'), local('ArchivoNarrow-Bold'), url(http://fonts.gstatic.com/s/archivonarrow/v5/M__Wu4PAmHf4YZvQM8tWsCylde52zikAzebNtJS89aM.woff) format('woff');
+}

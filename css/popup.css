@@ -26,17 +26,31 @@ body {
 	z-index: 0;
 	margin: 0px;
 	height : auto;
-	border-radius : 0px 0px 5px 5px;
+	border-radius : 5px;
 	border: 1px solid rgba(180,180,240,0.3);
-
 }
 
 .infos
 {
-	font-family: 'Roboto', Arial, sans-serif;
-	font-size: 16px;
+	font-family: Arial,'Roboto',  sans-serif;
+	font-size: 14px;
 	margin: 0px auto;
 	text-align:center;
+}
+
+/********** New maj ***************/
+
+#majup
+{
+	display: none;
+	margin: 0px;
+	padding: 3px;
+	font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	border-radius: 5px 5px 0px 0px;	
+	background-color: rgb(240,50,50);
 }
 
 /********** Pied de page **********/
@@ -47,37 +61,26 @@ footer
 	margin: 0px;
 }
 
-#param, #about
+#param
 {
 	display: inline-block;
 	font-family: 'Roboto', Arial, sans-serif;
-	font-size: 16px;
+	font-size: 12px;
 	padding: 0px; 
 	margin: 0px;
 	text-align: center;
 	background-color: rgba(180,180,240,0.4);
 }
 
-#param:hover, #about:hover
+#param:hover
 {
-	font-family: 'Roboto', Arial, sans-serif;
-	font-size: 16px;
-	padding: 0px; 
-	margin: 0px;
-	text-align: center;
 	background-color: rgba(180,180,240,0.3);
 }
 
 #param
 {
-	width: 198px;
-	border-radius: 1px 0px 0px 5px;
-}
-
-#about
-{
-	width: 198px;
-	border-radius: 0px 0px 5px 0px;
+	width: 400px;
+	border-radius: 1px 0px 5px 5px;
 }
 
 /********** Chargement **********/
@@ -134,14 +137,15 @@ footer
 {
 	display: none;
 	margin-top: 15px;
+	text-align: center;
 }
 
 .divInfo
 {
 	margin:0px;
-	
 	margin-bottom: 10px;
-	font-size: 20px;
+	display: inline-block;
+	font-size: 16px;
 }
 
 .reco-balance 
@@ -149,9 +153,9 @@ footer
 	color: #4CA6FF;
 	background-color: white;
 	padding: 1pt 5pt;
-	margin: 10px;
+	margin: 5px;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 16px;
 	box-shadow: 0px 0px 2px grey;
 	border-radius: 3px;
 }

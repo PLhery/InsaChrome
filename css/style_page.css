@@ -213,5 +213,62 @@ select
 	background-color: rgba(200,200,255,0.4);
 }
 
+/********** Demineur **********/
+
+#center-dem, #content-dem
+{
+	width: auto;
+	max-width: 1500px;
+}
+
+#game-bloc
+{
+	text-align:left;
+	background-color: black;
+	color: white;
+	display: inline-block;
+}
+
+.tile
+{
+	margin:0px;
+	padding:0px;
+	box-shadow: 0px 0px 8px black;
+	background-color:rgb(200,200,200);
+	height: 25px;
+	width: 25px;
+}
+
+.tile:hover
+{
+	background-color:rgb(220,220,220);
+}
+
+.tile:active
+{
+	margin: 1px;
+	height: 23px;
+	width: 23px;
+}
+
+.ligne-dem
+{
+	font-size:15px;
+	margin: 0px;
+	margin-bottom: -3px;
+	padding: 0px;
+}
+#game-bloc
+{
+	display: inline-block;
+	vertical-align:top;
+}
+}
+
+#score
+{
+	display: inline-block;
+	vertical-align:top;
+}
 
 
