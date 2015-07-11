@@ -28,5 +28,5 @@
    },
    "options_page": "options.html",
    "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs" ],
-   "version": "3.2.4""
+   "version": "3.2.4"
 }
