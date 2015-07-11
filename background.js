@@ -142,8 +142,8 @@
 					var source2 = $('<div>' + response + '</div>');
 					infonom = MajNom(source2.find('td:eq(11)').html())+" "+source2.find('td:eq(9)').html(); //On met le nom et le prénom en forme (et met les premières lettres des noms, meme composés, en maj)
 					infoto = source2.find('td:eq(5)').html();
-					rang = source2.find('td:eq(102)').html();
-					
+					rang = source2.find("tbody:last>tr:contains(rang)>td:eq(1)").html();
+
 					if((!source2.find('td:eq(11)').html() || !source2.find('td:eq(9)').html()) && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
 						connection = true;
 						connect();
