@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "InsaChrome",
-	"version": "3.3.0.0",
+	"version": "4.0.0.0",
 	"description": "Connectez-vous automatiquement au réseau wifi INSA-invité, à cipcnet et au réseau INSA, en un clic.",
 	"icons": 
 		{

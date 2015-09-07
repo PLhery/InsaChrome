@@ -27,7 +27,6 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 			connexionBouton(element, "CAS"); //On se connecte avec l'animation des boutons
 		}
 
-
 		function connexionLien(element, service, url) { //animation de connexion sur les liens
 
 				chrome.storage.local.set({erreur: ""}); //Au début, pas d'erreur
@@ -38,7 +37,7 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 				
 				element.style.fontWeight = "bold"; //On met son contenu en gras.
 				
-				var texte="Connexion.."; //On prend le texte à afficher
+				var texte = "Connexion.."; //On prend le texte à afficher
 				var couleursLettres=new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800"); //Et un gros tas de couleurs
 				var i=0;
 				
@@ -68,7 +67,7 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 				chrome.storage.onChanged.addListener(function(changes, namespace) { //On va regarder ce qui est tické
 					for (key in changes) {
 						if(key=="services" && (changes["services"].newValue == service)) { //Si notre service est tické
-								element.innerHTML="Connecté !"; //on l'affiche
+								element.innerHTML = "Connecté !"; //on l'affiche
 								connected = true;
 								if(url)
 									window.location.href = url; //Si une url est donnée on y va
@@ -86,38 +85,32 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 				var connected = false; //On est pas connecté
 				chrome.runtime.sendMessage({method: "connect"}); //On lance la connexion
 				
-				
 				var i=0; //tour 0
 				function boucle() { //Cette fonction sera executée toutes les 300 ms
 					if(connected) //Si on est connecté, on arrête tout
 						return;
-						
-					var texte="Connexion"+Array(i%4+1).join('.')+Array(4-i%4).join(' '); //On prend le texte à afficher, avec i modulo 4 (0,1,2 ou 3) petits points (et des espaces pour garder une taille fixe)
-					
+					var texte = "Connexion" + Array(i%4 + 1).join('.') + Array(4 - i%4).join(' '); //On prend le texte à afficher, avec i modulo 4 (0,1,2 ou 3) petits points (et des espaces pour garder une taille fixe)
 					element.value=texte;
 					
 					i++; //tour suivant
 					
-					
 					chrome.storage.local.get ("erreur", function (result) { //On regarde si une erreur est survenue
-					if(result.erreur)  //S'il y en a une
-						element.value=result.erreur.replace(/(<([^>]+)>)/ig,""); //On l'affiche sans html (retours ligne et liens)
-					else 
-						setTimeout(boucle, 300); //Sinon tout va bien on continue la boucle
-					
+						if(result.erreur)  //S'il y en a une
+							element.value = result.erreur.replace(/(<([^>]+)>)/ig,""); //On l'affiche sans html (retours ligne et liens)
+						else 
+							setTimeout(boucle, 300); //Sinon tout va bien on continue la boucle
 					});	
 				};boucle();
 				
 				chrome.storage.onChanged.addListener(function(changes, namespace) { //On va regarder ce qui est tické
 					for (key in changes) {
-						if(key=="services" && (changes["services"].newValue == service)) { //Si notre service est tické
-								element.value="Connecté !"; //on l'affiche
+						if(key == "services" && (changes["services"].newValue == service)) { //Si notre service est tické
+								element.value = "Connecté !"; //on l'affiche
 								connected = true;
 								if(url)
 									window.location.href = url; //Si une url est donnée on y va
 								else
 									location.reload(); //Sinon on actualise la page
-									
 						}
 					}
 				});
