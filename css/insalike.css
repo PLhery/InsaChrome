@@ -11,14 +11,6 @@
 	  src: local('Roboto'), local('Roboto Thin'), local('Roboto-Thin'), url(../fonts/roboto.woff) format('woff');
 }
 
-@font-face {
-	font-family: 'Montserrat';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Montserrat-Regular'), url(../fonts/Montserrat.woff) format('woff');
-}
-
-
 /********** Gestion du global **********/
 
 body, html 
@@ -37,21 +29,21 @@ body, html
 {
 	background-color: white;
 	padding: 40px;
-	font-family: 'Montserrat';
+	font-family: 'roboto';
 	text-align: center;
 	width:800px;
 	margin: auto;
 	margin-top: 50px;
 	margin-bottom: 50px;
 	font-size:20px;
-	border-radius: 1px;
+	border-radius: 3px;
 	box-shadow: 0px 0px 5px grey;
 	dstext-decoration: underline;
 }
 
 .center 
 {
-	font-family: 'Montserrat';
+	font-family: 'roboto';
 	text-align: center;
 	margin: auto;
 	margin-top: 50px;
@@ -62,7 +54,7 @@ body, html
 
 .centerFunc
 {
-	font-family:'Montserrat';
+	font-family:'roboto';
 	text-align: left;
 	margin: auto;
 	margin-top: 50px;
@@ -92,38 +84,36 @@ iframe.connect
 h1
 {
 	font-family: 'roboto', Arial, sans-serif;
-	font-size: 50px;
-	font-weight: normal;
 	text-align: center;
 	display: inline;
 	border-bottom: 1px solid black;
+	font-weight: normal;
+	font-size: 50px;
 }
 
 h2
 {
 	padding-left: 40px;
 	font-family: 'roboto', Arial, sans-serif;
-	font-size: 30px;
-	font-weight: normal;
 	text-align: left;
 	display: inline;
+	font-weight: bold;
+	font-size: 30px;
 }
 
 /********** Affichage des boutons de changement de page **********/
 
 .navButton
 {
-	
 	margin: 10px;
 	padding: 6px;
 	padding-right: 10px;
 	padding-left: 10px;
 	display: inline-block;
 	background-color: rgb(250,250,250);
-	border-radius: 1px;
-	box-shadow:0px 0px 1px grey;
+	border-radius: 20px;
+	box-shadow:0px 1px 3px grey;
 	position: static;
-	transition: 0.3s background;
 }
 
 .navButton a:hover
@@ -133,8 +123,7 @@ h2
 
 .navButton:hover
 {
-	border-bottom: 2px solid grey;
-	background-color: rgb(230,230,240);
+	box-shadow: 0px -1px 1px grey;
 }
 
 /********** Paragraphe de textes très courts **********/
@@ -183,24 +172,21 @@ hr.infos
 	margin-bottom: 20px;
 }
 
-
+select 
+{
+	font-family: 'roboto';
+	font-size: 80%;
+}
 
 /********** Affichage des formulaires **********/
 
 .form1
 {
-	font-family: 'Montserrat';
-	border-radius: 1px;
-	font-size: 80%;
+	font-family: 'roboto';
+	border-radius: 5px;
+	font-size: 100%;
 }
 
-select 
-{
-	font-family: 'Montserrat';
-	font-style: italic;
-	border: 0px;
-	font-size: 80%;
-}
 /********** Tableau de commandes **********/
 
 .tab-command
@@ -231,14 +217,9 @@ select
 
 #center-dem, #content-dem
 {
-	width: 1200px;
+	width: auto;
+	max-width: 1500px;
 }
-
-#center-dem
-{
-	display: none;
-}
-
 
 #game-bloc
 {

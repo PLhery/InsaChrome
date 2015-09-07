@@ -11,8 +11,8 @@
 		},
 	"background": 
 		{
-			"page":"background.html",
-			"persistent": true
+			"scripts": ["jquery-2.1.1.min.js","aes.js","background.js"],
+			"persistent": false
 		},
 	"browser_action": 
 		{
@@ -35,7 +35,7 @@
 		{
 			"keyword": "i"
 		},
-	"options_page": "options.html",
+	"options_page": "pages/options.html",
 	"permissions": [ "http://securelogin.arubanetworks.com/*", 
 					"*://*.insa-lyon.fr/*", 
 					"cookies", 

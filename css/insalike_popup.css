@@ -1,5 +1,5 @@
 /*=================================================
-  ====== POPUP : blue style =======================
+  ====== POPUP : insa style =======================
   =================================================*/
 
 
@@ -21,22 +21,22 @@
 /********** Gestion du global **********/
 
 body {
-	width: 200px;
-	background: url(../content/popup_background.png);
+	width: 400px;
+	background-color: rgb(240,240,240);
 	z-index: 0;
 	margin: 0px;
 	height : auto;
+	font-family:'Archivo narrow Regular', Arial,'Roboto',  sans-serif;
 	border-radius : 5px;
 	border: 1px solid rgba(180,180,240,0.3);
 }
 
 .infos
 {
-	font-family: 'Montserrat', Arial,'Roboto',  sans-serif;
+	font-family:'Archivo Narrow Regular', Arial,'Roboto',  sans-serif;
 	font-size: 14px;
 	margin: 0px auto;
-	text-align: center;
-	font-weight: thick;
+	text-align:center;
 }
 
 /********** New maj ***************/
@@ -58,52 +58,54 @@ body {
 
 footer
 {
-	display: none;
 	padding: 0px;
 	margin: 0px;
+	z-index: 2;
 }
 
 #param
 {
+	font-family: 'Archive Narrow Regular', Arial, 'Roboto', sans-serif;
 	display: inline-block;
-	font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
 	font-size: 12px;
 	padding: 0px; 
 	margin: 0px;
+	color: white;
 	text-align: center;
-	background-color: rgba(180,180,240,0.4);
+	background-image: url(../content/footerInsa400.jpg);
+	opacity:1;
 }
 
 #param:hover
 {
-	background-color: rgba(180,180,240,0.3);
+	opacity:0.9;
 }
 
 #param
 {
-	width: 100%;
+	width: 400px;
 	border-radius: 1px 0px 5px 5px;
 }
 
 /********** Chargement **********/
 
 #wait{
-	height: 120px;	width: 100px;
+	height: 100px;	width: 400px;
 	line-height: 100px;
 	font-family: Montserrat;
-	font-size: 14px;
+	font-size: 20px;
 	color: white;
 	text-align: center;
 	opacity: 1;
 	overflow: hidden;
 	position: relative;
-	background-image: -webkit-linear-gradient(right, rgba(0,0,0,0),#00bcd4, rgba(0,0,0,0));
+	background: orange;
 	z-index:-2;
 }
 
 .circle {
 	position: absolute;
-	box-shadow: 0px 0px 2px white;
+	box-shadow: 0px 0px 150px rgb(250,250,250);
 	z-index: -1;
 }
 
@@ -111,7 +113,7 @@ footer
 {
 	font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
 	display: none;
-	width: 100%;
+	width: 400px;
 	background-color: rgba(90,150,220,0.8);
 	z-index: 1;
 }
@@ -123,7 +125,7 @@ footer
 	font-size:15px;
 	color: white;
 	text-align: center;
-	width: 100%;
+	width: 400px;
 }
 
 #message 
@@ -138,37 +140,31 @@ footer
 #informations
 {
 	display: none;
-	margin-top: 5px;
+	margin-top: 15px;
 	text-align: center;
 }
 
 .divInfo
 {
-	font-family: 'Montserrat';
 	margin:0px;
-	margin-bottom: 16px;
-	display: block;
+	margin-bottom: 10px;
+	display: inline-block;
 	font-size: 16px;
-	color: #4CA6FF;
 }
 
 .reco-balance 
 {
-	color: white;
-	background-color: #4CA6FF;
+	color: #4CA6FF;
+	background-color: white;
 	padding: 1pt 5pt;
-	margin-top: 5px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 5px;
 	font-weight: bold;
-	font-size: 17px;
+	font-size: 16px;
 	box-shadow: 0px 0px 2px grey;
 	border-radius: 3px;
-	display: block;
-	width: 60%;
 }
 
-/********** Connecté en tant que **********/
+/********** ConnectÃ© en tant que **********/
 
 #photo
 {
@@ -176,13 +172,6 @@ footer
 	border: 2px groove white;
 	box-shadow: 1px 1px 2px grey;
 	background-color: white;
-}
-
-#nom
-{
-	font-family: 'Montserrat';
-	text-align: center;
-	color: black;
 }
 
 /********** Les trucs en plus **********/
@@ -197,19 +186,29 @@ footer
 
 .icon-add
 {
-	height: 40px;
+	height: 50px;
 	display: inline-block;
 	vertical-align: top;
 	margin: 5px;
-	border-radius: 5px;
-	border: 2px solid white;
-	box-shadow: 0px 0px 2px grey;
 	text-align: left;
+	background-color: rgb(150,150,170);
+	transition: all 0.2s;
+	filter: grayscale(0.3);
+        -webkit-filter: grayscale(0.3);
+        -moz-filter: grayscale(0.3);
+        -o-filter: grayscale(0.3);
+        -ms-filter: grayscale(0.3);
 }
 
 .icon-add:hover
 {
-	box-shadow: 0px 0px 3px black;
+	box-shadow: 0px 0px 1px white;
+	background-color: rgb(170,170,210);
+	filter: grayscale(0);
+        -webkit-filter: grayscale(0);
+        -moz-filter: grayscale(0);
+        -o-filter: grayscale(0);
+        -ms-filter: grayscale(0);
 }
 
 /*Radio Gatsun*/
@@ -244,26 +243,21 @@ footer
 
 #message_du_jour {
 	font-weight: bold;
-	text-align: center;
 }
 
 /********** Checkbox **********/
-/*checkbox animés - inspiré de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
+/*checkbox animÃ©s - inspirÃ© de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
 
-.connecting
+#services
 {
-	margin-top: -8px;
-	position: absolute;
-	left: 100px;
-	display: inline;
+	display: none;
 }
 
 .connect
 {
-	display: none;
-	font-family: 'Montserrat';
-	font-size: 16px;
-	margin: 0;
+	font-family: 'Roboto';
+	font-size:20px;
+	margin:0;
 	width:300px;
 }
 
@@ -271,7 +265,7 @@ label
 {
 	position: relative;
 	padding-left: 30px;
-	font-size: 12px;
+	font-size: 14px;
 	cursor: pointer;
 	font-family: 'Montserrat';
 }
@@ -318,7 +312,7 @@ input[type="checkbox"]:checked + label:after
 
 a
 {
-	color:#4CA6FF;
+	color: rgb(10,10,10);
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -327,4 +321,13 @@ a:hover
 {
 	color:#ACA6FF;
 }
-   
+ 
+#changestyle
+{
+	position: absolute;
+	right:0px;
+	background-color: rgb(220,220,220);
+	z-index: 3;
+	padding: 10px;
+	border-radius: 3px;
+} 

@@ -4,7 +4,7 @@
 
 
 
-/** ============ Codé exécuté à l'installatio ou à la MAJ de InsaChrome ============ **/
+/** ============ Codé exécuté à l'installation ou à la MAJ de InsaChrome ============ **/
 
 chrome.runtime.onInstalled.addListener(function() {
 	if(!localStorage['s']) { //S'il n'y a pas de clé de cryptage - c'est à dire qu'on est encore à une version ou le mot de passe n'etait pas crypté
@@ -26,7 +26,12 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { //Si une page (popup ou content script) nous demande des infos
 	if (request.method == "getInfos"){ //S'il veut les identifiants
-		sendResponse({passe: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), nom: localStorage['nom'], insainviteauto: localStorage['insainviteauto'], autoconnect: localStorage['reseauinsaauto']}); //les voila
+		sendResponse({passe: CryptoJS.AES.decrypt(localStorage['passe'], 
+		"1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), 
+		nom: localStorage['nom'], 
+		insainviteauto: localStorage['insainviteauto'], 
+		autoconnect: localStorage['reseauinsaauto']
+		}); //les voila
 	}
 	else if(request.method == "connect") { //S'il veut qu'on se connecte
 		connect(); //VoiliVoilou
@@ -147,8 +152,13 @@ function getInformations() {
 					var source2 = $('<div>' + response + '</div>');
 					infonom = MajNom(source2.find('td:eq(11)').html())+" "+source2.find('td:eq(9)').html(); //On met le nom et le prénom en forme (et met les premières lettres des noms, meme composés, en maj)
 					infoto = source2.find('td:eq(5)').html();
-					rang = source2.find('td:eq(102)').html();
+					var rang1 = source2.find('td:eq(102)').html();
+					var rang2 = source2.find("tbody:last>tr:contains(rang)>td:eq(1)").html();
 					
+					if (rang2)
+						rang = rang2;
+					else if(rang1)
+						rang = rang1;
 					if((!source2.find('td:eq(11)').html() || !source2.find('td:eq(9)').html()) && !connection) { //s'il manque une info et qu'on se connecte pas déja, on se connecte
 						connection = true;
 						connect();
@@ -162,9 +172,8 @@ function getInformations() {
 								connect();
 							}
 						  });
-
 }
-	
+
 	function envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions, rang) { //Envoi les infos sur la personne à la popup
 		chrome.storage.local.set({infos: new Array(
 		infomails,
@@ -179,25 +188,21 @@ function getInformations() {
 				
 	function connect() {
 		chrome.storage.local.get('state', function (result) { //On récupère l'etat de la popup
-			if(result.state=="connecté") //Si il est déja sensé être connecté
+			if(result.state=="connecté"){ //Si il est déja sensé être connecté
 				error("Une erreur est survenue (#013) : <br/> Impossible de récupérer vos informations. Un site INSA a peut être un problème/cette extension n'est peut etre pas à jour !");
-				
-			else if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']) //On vérifie si on a bien un username/pass
-					error("Merci de rentrer votre identifiant/mot de passe dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>. (#006)"); 
-					
-			else {//si y'a pas de soucis
+			}else if(!localStorage['passe'] | localStorage['passe'] == 'undefined' | localStorage['nom'] == 'undefined'| !localStorage['nom']){//On vérifie si on a bien un username/pass
+					error("Merci de rentrer votre identifiant/mot de passe dans les <a href='pages/options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>. (#006)"); 
+			}else {//si y'a pas de soucis
 				chrome.storage.local.set({state: "connexion"});  //On passe la popup à l'etat de connexion
-					connectCAS(); //Et on lance la connexion
-		}
+				connectCAS(); //Et on lance la connexion
+			}
 		});
 
 	}
 	
 	function connectCAS()  {
-
 		//On se connecte à INSA CAS
 		chrome.cookies.remove({"url": "https://login.insa-lyon.fr/cas/", "name": "JSESSIONID"}); //on enlève le cookie JSESSIONID si déja présent
-
 		$.get("https://login.insa-lyon.fr/cas/login").done(function (response) { //On génère un nouveau JSESSIONID et le lt associé
 				//On vérifie si on est bien sur la bonne page
 				 chrome.cookies.get({"url": "https://login.insa-lyon.fr/cas/", "name": "JSESSIONID" }, function(cookie) { //on lit le cookie jsessionid
@@ -206,9 +211,9 @@ function getInformations() {
 					.done(function( data ) { //On vérifie si on est bien connecté
 					
 						if($('<div>' + data + '</div>').find("p").first().text() == "Vous vous êtes authentifié(e) auprès du Service Central d'Authentification.") { //Si on est bien connecté
-						
+										
 										chrome.storage.local.set({services: "CAS"}); //On tick le service CAS sur la popup
-										connectMoodle();//On se connecte à Moodle
+										connectMoodle();//On se connecte au nouveau Moodle
 										connectCIPC();//On se connecte à CIPCnet
 										connectZimbra();//On se connecte à Zimbra
 										connectPlanete(); //On se connecte à Planète
@@ -216,7 +221,7 @@ function getInformations() {
 						}else if($('<div>' + data + '</div>').find("#msg").text()) { //Sinon, s'il y a un message
 						
 							if($('<div>' + data + '</div>').find("#msg").text()=="Mauvais identifiant / mot de passe.")//Si c'est un problème de mot de passe
-								error("Une erreur est survenue (#003) :  <br/> Vos identifiants semblent incorrects. Verifiez-les dans les <a href='options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>.")
+								error("Une erreur est survenue (#003) :  <br/> Vos identifiants semblent incorrects. Verifiez-les dans les <a href='pages/options.html' style='color:white;font-weight:bold;' target='_blank'>options</a>.")
 							else
 								error("Une erreur CAS (#004) est survenue <br/><br/> Message : "+$('<div>' + data + '</div>').find("#msg").text());
 						}else //Si il y a une erreur et pas de message
@@ -253,25 +258,22 @@ function getInformations() {
 
 	}
 
-	function connectMoodle() {
-
-		//On se connecte à Moodle
-		$.get("http://cipcnet.insa-lyon.fr/moodle.195/login/index.php").done(function (response) { //On demande la page de connexion
-			
-			if($('<div>' + response + '</div>').find("#portal-personaltools li a:eq(1)").text() == "Déconnexion") //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
+	function connectMoodle(){
+		
+		//On se connecte au nouveau Moodle
+		$.get("http://moodle2.insa-lyon.fr/login/index.php").done(function (response) { //On demande la page de connexion
+			if($('<div>' + response + '</div>').find(".logininfo a:eq(2)").text() == "Déconnexion"){ //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
 				chrome.storage.local.set({services: "Moodle"}); //On tick le service Moodle sur la popup
-			else
+				console.log("you are logged into moodle");
+			}else
 				error("Une erreur inconnue (#010) est survenue lors de votre connexion au Moodle.");
-			
 		}).fail(function(jqXHR) {
 			if(!jqXHR.status)
 				error("Un problème est survenu (#009),<br/> êtes-vous connecté à internet ?");
 			else
 				error("Une erreur est survenue sur le site moodle (#018),<br/>"+jqXHR.status+" - "+jqXHR.statusText);
 		});
-
 	}
-
 	function connectZimbra() {
 
 		//On se connecte à Zimbra
@@ -317,15 +319,18 @@ function getInformations() {
 	}
 
 	function MajNom(nom){ //Fonction pour mettre en majuscule la premiere lettre des noms composés
-		nom = nom.toLowerCase();
-		var tabnom=nom.split('-')
-		var i=-1;
-		var Maj="";
-		while(tabnom[++i]){
-		 tabnom[i]=tabnom[i].replace(/(\w)(\w+)/,function(T,M,C){return M.toUpperCase()+C})
-		 }
-		tabnom=tabnom.join('-')
-		return tabnom
+		if(nom){
+			nom = nom.toLowerCase();
+			var tabnom = nom.split('-')
+			var i =- 1;
+			var Maj = "";
+			while(tabnom[++i]){
+				tabnom[i]=tabnom[i].replace(/(\w)(\w+)/,function(T,M,C){return M.toUpperCase()+C})
+			}
+			tabnom = tabnom.join('-')
+			return tabnom
+		}
+		return "";
 	}
 
 
@@ -390,7 +395,7 @@ function getInformations() {
 							LoadTimetable();
 						break; 
 						case "Moodle": 
-							navigate("http://cipcnet.insa-lyon.fr/moodle/");
+							navigate("http://moodle2.insa-lyon.fr/");
 						break; 
 						case "Zimbra": 
 							navigate("https://zmail.insa-lyon.fr/");
@@ -406,7 +411,7 @@ function getInformations() {
 						break; 
 						default: //S'il a rien trouvé
 							if(text.indexOf("cours ")==0) //Si le texte entré commence par "cours" en fait c'est qu'il fait une recherche (ex : cours chimie)
-								navigate("http://cipcnet.insa-lyon.fr/moodle.195/course/search.php?search="+text.substr(6));
+								navigate("http://moodle2.insa-lyon.fr/course/search.php?search="+text.substr(6));
 							else if(text.indexOf("prenom ")==0) //la même
 								navigate("http://cipcnet.insa-lyon.fr/scol/recherches/ldap_search?pcontient=1&id_prenom="+text.substr(7));
 							else if(text.indexOf("nom ")==0)

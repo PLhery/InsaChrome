@@ -3,33 +3,38 @@
 	<head>
 		<title>InsaChrome</title>
 		<link rel="stylesheet" type="text/css" href="fonts/fontello/css/fontello-embedded.css">
+		<link rel="stylesheet" type="text/css" href="fonts/insafont.css">
 		<link id="stylePopup" rel="stylesheet" type="text/css" href="css/popup.css">
 	</head>
 
 	<body>
 		<div id="majup"><p id="majup-msg">New MAJ</p></div>
+		
 		<div id="informations">
-			<p class="infos">Connecté en tant que :</p>
-			<table class="infos">
-				<tr>
-				  <td><img id="photo" src="content/rhino_50.jpg" alt="Photo de toi !"/></td>
-				  <td class="infos" id="nom">...</td> 
-				</tr>
-			</table>
+			<div class="divInfo" id="zonePhoto">
+				<p class="infos" id="nom">...</p> 
+				<img id="photo" src="content/rhino_50.jpg" alt="Photo de toi !"/>
+			</div>
+			
 			<div class="divInfo">
-				<p class="infos"><a href="https://zmail.insa-lyon.fr/" target="_blank" > Mails non lus :<span class="reco-balance" id="mails">... / ...</span></a></p>
+				<p class="infos"><a href="https://zmail.insa-lyon.fr/" target="_blank" > Mails non lus :</a>
+				<span class="reco-balance" id="mails">... / ...</span></p>
 			</div>
 			<div class="divInfo">
-				<p class="infos">Quota d'impressions :<span class="reco-balance" id="impressions">... / 200</span></p>
+				<p class="infos">Impressions :<span class="reco-balance" id="impressions">... / 200</span></p>
 			</div>
 			<div id="bloc-solde">
 				<div class="divInfo">
-					<p class="infos"><a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >
-					Solde :<span class="reco-balance"  id="solde">... €</span></a></p>
+					<p class="infos">
+						<a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >Solde forfait :</a>
+						<span class="reco-balance"  id="soldeforfait">... €</span>
+					</p>
 				</div>
 				<div class="divInfo">
-					<p class="infos"><a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >
-					Solde forfait :<span class="reco-balance"  id="soldeforfait">... €</span></a></p>
+					<p class="infos">
+						<a href="https://planete.insa-lyon.fr/uPortal/f/u23l1s5/p/reco-portlet.u23l1n48/max/render.uP?pCp" target="_blank" >Solde :</a>
+						<span class="reco-balance"  id="solde">... €</span>
+					</p>
 				</div>
 			</div>
 			<div id="message_du_jour" class="infos"></div>
@@ -40,45 +45,37 @@
 		</div>	
 		
 		<div class="adds" id="adds">
-			<a href="pages/radioGatsun.html" target="_blank"><img class="icon-add" id="img-Gatsun" src="content/Adds/gatsun.jpg" alt="Radio Gatsun" title="Radio Gatsun" /></a>
+			<a href="http://gatsun.asso.insa-lyon.fr/live" target="_blank"><img class="icon-add" id="img-Gatsun" src="content/Adds/gatsun.jpg" alt="Radio Gatsun" title="Radio Gatsun" /></span>
 			<p class="add-elem" id="Gatsun">
 				<span id="txt-Gatsun">Radio Gatsun</span>
 			</p>
-			<a href="http://artscene-asso.fr/" target="_blank"><img class="icon-add" id="img-artscene" src="content/Adds/art-scene.jpg" alt="photo Art-scène" title="Art-scène" /></a>
+			<a href="http://artscene-asso.fr/" target="_blank"><img class="icon-add" id="img-artscene" src="content/Adds/art-scene.png" alt="photo Art-scène" title="Art-scène" /></a>
 			<p class="add-elem" id="artscene"></p>
 			<a href="http://moodle2.insa-lyon.fr/" target="_blank"><img class="icon-add" id="img-moodle" src="content/Adds/moodle.png" alt="photo moodle" title="Moodle" /></a>
-			<!--img class="icon-add" id="img-notes" src="content/Adds/20sur20.png" alt="photo des notes" title="Cliquez pour afficher les notes" />
-			<p class="add-elem" id="notes">
-				<span id="txt-notes">Notes</span>
-				<table class="tabnote" id="tabnote">
-					<thead>
-						<tr>
-							<td>Matière</td><td>Moyenne</td>
-						</tr>
-					</thead>
-				</table>
-			</p-->
 		</div>
 		
 		<div id="services">
-			<p class="connect" id = "connect">Connexion à..</p>
-			<br/>
-			<input type="checkbox" checked disabled id="chInvite" /><label>Insa-Invité</label>
-			<br/>
-			<input type="checkbox" name="chCAS" id="chCAS" /><label for="chCAS">Insa CAS</label>
-			<br/>
-			<input type="checkbox" name="chCIPC" id="chCIPC" /><label for="chCIPC">CIPCNet</label>
-			<br/>
-			<input type="checkbox" name="chMoodle" id="chMoodle" /><label for="chMoodle">Moodle</label>
-			<br/>
-			<input type="checkbox" name="chZimbra" id="chZimbra" /><label for="chZimbra">Zimbra</label>
-			<br/>
-			<input type="checkbox" name="chPlanete" id="chPlanete" /><label for="chPlanete">Planète</label>
+			<div class="connecting">
+				<p class="connect" id = "connect">Connexion à..</p>
+				<br/>
+				<input type="checkbox" checked disabled id="chInvite" /><label>Insa-Invité</label>
+				<br/>
+				<input type="checkbox" disabled name="chCAS" id="chCAS" /><label for="chCAS">Insa CAS</label>
+				<br/>
+				<input type="checkbox" disabled name="chCIPC" id="chCIPC" /><label for="chCIPC">CIPCNet</label>
+				<br/>
+				<input type="checkbox" disabled name="chMoodle" id="chMoodle" /><label for="chMoodle">Moodle</label>
+				<br/>
+				<input type="checkbox" disabled name="chZimbra" id="chZimbra" /><label for="chZimbra">Zimbra</label>
+				<br/>
+				<input type="checkbox" disabled name="chPlanete" id="chPlanete" /><label for="chPlanete">Planète</label>
+			</div>
+			<div id="wait" >
+				Chargement...
+			</div>
 		</div>
 		
-		<div id="wait">
-			Chargement...
-		</div>
+		
 		
 		<div id="erreur">
 			<div id="erreurBoite">
