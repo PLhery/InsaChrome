@@ -49,13 +49,22 @@ Enfin les permissions : l'extension à le droit d'accès à arubanetworks, la pa
 -> Lire le manifest.json en détails
 
 Le JSON est un langage relativement simple, mais a le défaut de ne pas proposer de commentaires. En voici donc quelques uns.
+
 • Le fichier en lui-même est le fichier de lancement de l'extension, c'est le premier lu et il servira de chef d'orchestre au reste de l'extension
+
 • De "manifest_version" jusqu'à "description" : c'est de l'information pour l'utilisateur
+
 • "icons" : les 3 dimensions d'icônes nécessaire à l'affichage de Chrome
+
 • "background" : c'est une page qui tourne en arrière plan. Un peu bizarre en ce sens qu'il n'y a pas de page html assosciée créée dans les dossiers mais le principe est le même. On lui donne les les librairies jquery (qui permet de faire pas mal de choses en js) et une librairie de cryptage AES (pour le mot de passe, bien que peu utile), puis le background.js, le gros du code.
+
 • "browser_action" : affiche la petite icône en haut à droite de Chrome et lance la popup au click
+
 • "content-scripts" : Ajoute du script à la page en toile de fond. J'ai pas encore bien lu le code...
+
 • "omnibox" : permet le raccourci "i"
+
 • "options_page" : donne la page d'options
+
 • "permissions" : donne les permissions de modification sur les sites INSA, de stocker sur votre ordi les identifiants et de se connecter au site de login.
 
