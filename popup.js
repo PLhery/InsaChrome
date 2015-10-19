@@ -89,10 +89,10 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 
 // == Affichage de l'écran de chargement
-
+/*
 var circAnimI = 0;
 var circAnimColors = new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800");
-
+*/
 dotAnimation();
 
 

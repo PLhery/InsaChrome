@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { /
 		connect(); //VoiliVoilou
 	}
 	else if(request.method == "timetable") { //S'il veut qu'on charge l'emploi du temps ("i emploi du temps")
-			LoadTimetable();				  
+			LoadTimetable();  
 	}
 	else if(request.method == "reload") { //S'il veut qu'on actualise les pages INSA
 		chrome.tabs.query({url : "*://*.insa-lyon.fr/*"}, function(tabs) {
@@ -241,7 +241,6 @@ function getInformations() {
 	}
 
 	function connectCIPC() {
-
 		//On se connecte à CIPCNET
 		$.get("https://login.insa-lyon.fr/cas/login?service=http%3A%2F%2Fcipcnet.insa-lyon.fr%2Flogin_form").done(function (response) { //On demande la page de connexion
 			if($('<div>' + response + '</div>').find("#user-name").length) //Si le nom d'utilisateur est bien affiché sur CIPC (donc il est connecté)
@@ -259,7 +258,6 @@ function getInformations() {
 	}
 
 	function connectMoodle(){
-		
 		//On se connecte au nouveau Moodle
 		$.get("http://moodle2.insa-lyon.fr/login/index.php").done(function (response) { //On demande la page de connexion
 			if($('<div>' + response + '</div>').find(".logininfo a:eq(2)").text() == "Déconnexion"){ //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
@@ -325,7 +323,7 @@ function getInformations() {
 			var i =- 1;
 			var Maj = "";
 			while(tabnom[++i]){
-				tabnom[i]=tabnom[i].replace(/(\w)(\w+)/,function(T,M,C){return M.toUpperCase()+C})
+				tabnom[i] = tabnom[i].replace(/(\w)(\w+)/,function(T,M,C){return M.toUpperCase()+C})
 			}
 			tabnom = tabnom.join('-')
 			return tabnom
@@ -341,10 +339,7 @@ function getInformations() {
 
 	chrome.omnibox.onInputChanged.addListener( //Si on tape une requête commencant par "i" dans l'omnibox (la barre d'adresse)
 		function(text, suggest) { //On envoie les suggestions (les propositions sous l'adresse)
-		  
-			  var sugg = []; //Le tableau de suggestions qu'ont va envoyer
-
-
+			var sugg = []; //Le tableau de suggestions qu'ont va envoyer
 			if("emploi du temps edtemps".indexOf(text.toLowerCase())!=-1) //si ce qu'a tapé l'utilisateur est contenu dans "emploi du temps edtemps"
 				sugg.push({content: "Emploi du temps", description: "Emploi du temps <dim>Affiche votre emploi du temps de la semaine</dim>"}); //On envoie la suggestion
 
@@ -386,39 +381,39 @@ function getInformations() {
 
 	chrome.omnibox.onInputEntered.addListener(function(text) { //Si  l'utilisateur valide son choix
 			
-		var tour2=false;
+		var tour2 = false;
 			do {
-					tour2=false;
+					tour2 = false;
 					switch (text) //On cherche à trouver ce que l'utilisateur à choisi, et faire en consequence (est bien marqué que s'il clique sur une suggestion)
 					{ 
 						case "Emploi du temps": 
 							LoadTimetable();
-						break; 
+							break; 
 						case "Moodle": 
 							navigate("http://moodle2.insa-lyon.fr/");
-						break; 
+							break; 
 						case "Zimbra": 
 							navigate("https://zmail.insa-lyon.fr/");
-						break; 
+							break; 
 						case "CIPC": 
 							navigate("http://cipcnet.insa-lyon.fr/");
-						break; 
+							break; 
 						case "Notes": 
 							navigate("http://cipcnet.insa-lyon.fr/scol/bulletin_eleve");
-						break; 
+							break; 
 						case "Planete": 
 							navigate("https://planete.insa-lyon.fr/");
-						break; 
+							break; 
 						default: //S'il a rien trouvé
-							if(text.indexOf("cours ")==0) //Si le texte entré commence par "cours" en fait c'est qu'il fait une recherche (ex : cours chimie)
+							if(text.indexOf("cours ")==0) //Si le texte entrée commence par "cours" en fait c'est qu'il fait une recherche (ex : cours chimie)
 								navigate("http://moodle2.insa-lyon.fr/course/search.php?search="+text.substr(6));
 							else if(text.indexOf("prenom ")==0) //la même
 								navigate("http://cipcnet.insa-lyon.fr/scol/recherches/ldap_search?pcontient=1&id_prenom="+text.substr(7));
 							else if(text.indexOf("nom ")==0)
 								navigate("http://cipcnet.insa-lyon.fr/scol/recherches/ldap_search?ncontient=1&id_nom="+text.substr(4));
-							else { //Sinon c'est qu'il a fait entré en voulant aller à la solution proposée en bleu
-							text = lastsugg; //On va prendre la proposition en bleu
-							tour2=true; //On refait le tour
+							else { //Sinon c'est qu'il a fait entrée en voulant aller à la solution proposée en bleu
+								text = lastsugg; //On va prendre la proposition en bleu
+								tour2 = true; //On refait le tour
 							}
 						break; 
 					 }

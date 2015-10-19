@@ -112,7 +112,7 @@ footer
 	font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
 	display: none;
 	width: 100%;
-	background-color: rgba(90,150,220,0.8);
+	background-color: #4CA6FF;
 	z-index: 1;
 }
 
@@ -252,6 +252,7 @@ footer
 
 .connecting
 {
+	z-index:-8;
 	margin-top: -8px;
 	position: absolute;
 	left: 100px;

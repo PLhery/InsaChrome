@@ -6,12 +6,12 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 			var element = document.getElementsByClassName('visualIconPadding')[0]; //L'élement sur lequel on va afficher "connexion..", c'est le fameux lien
 			connexionLien(element, "CIPC"); //On se connecte avec l'animation des liens
 		}
-
+/*
 		if(document.getElementsByClassName('portalUser').length && document.getElementsByClassName('portalUser')[0].innerHTML.indexOf("Non connecté.")>=0){ //Si il y a un lien "Non connecté." (moodle), on se connecte
-			var element = document.getElementsByClassName('portalUser')[0]; //L'élement sur lequel on va afficher "connexion..", c'est le fameux lien
+			var element = document.getElementsByClassName('portalUser')[0]; //L'élement s	ur lequel on va afficher "connexion..", c'est le fameux lien
 			connexionLien(element, "Moodle"); //On se connecte avec l'animation des liens
 		}
-
+*/
 		if(document.getElementById('portalCASLoginLink') && document.getElementById('portalCASLoginLink').innerHTML.indexOf("Identifiez-vous")>=0){ //Si il y a un lien-bouton "Identifiez-vous" (planète), on se connecte
 			var element = document.getElementById('portalCASLoginLink'); //L'élement sur lequel on va afficher "connexion..", c'est le fameux lien-bouton
 			connexionLien(element, "Planete"); //On se connecte avec l'animation des liens
@@ -38,8 +38,8 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 				element.style.fontWeight = "bold"; //On met son contenu en gras.
 				
 				var texte = "Connexion.."; //On prend le texte à afficher
-				var couleursLettres=new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800"); //Et un gros tas de couleurs
-				var i=0;
+				var couleursLettres = new Array("#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800"); //Et un gros tas de couleurs
+				var i = 0;
 				
 				
 				function boucle() { //Cette fonction sera executée toutes les 80 ms
@@ -47,21 +47,17 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 						return;
 						
 					var couleur = couleursLettres[Math.floor(Math.random() * couleursLettres.length)]; //On prend une couleur au hasard
-					var connectHtml=texte.substring(0, i%11) + "<span style='color:"+couleur+"'>" + texte.charAt(i%11) + "</span>" + texte.substring(i%11+1, texte.length); //On entoure la ième lettre de cette couleur
+					var connectHtml = texte.substring(0, i%11) + "<span style='color:" + couleur + "'>" + texte.charAt(i%11) + "</span>" + texte.substring(i%11 + 1, texte.length); //On entoure la ième lettre de cette couleur
 					
-					element.innerHTML=connectHtml; //Et on injecte le tout dans l'element !
+					element.innerHTML = connectHtml; //Et on injecte le tout dans l'element !
+					i++; //On incrémente i (on passe à la lettre suivante)
 					
-					
-						i++; //On incrémente i (on passe à la lettre suivante)
-							
-				chrome.storage.local.get ("erreur", function (result) { //On regarde si une erreur est survenue
-					if(result.erreur)  //S'il y en a une
-						element.innerHTML=result.erreur.replace(/(<([^>]+)>)/ig,""); //On l'affiche sans html (retours ligne et liens)
-					else 
-						setTimeout(boucle, 80); //Sinon tout va bien on continue la boucle
-					
-				});		
-					
+					chrome.storage.local.get ("erreur", function (result) { //On regarde si une erreur est survenue
+						if(result.erreur)  //S'il y en a une
+							element.innerHTML=result.erreur.replace(/(<([^>]+)>)/ig,""); //On l'affiche sans html (retours ligne et liens)
+						else 
+							setTimeout(boucle, 80); //Sinon tout va bien on continue la boucle
+					});	
 				};boucle();
 
 				chrome.storage.onChanged.addListener(function(changes, namespace) { //On va regarder ce qui est tické
