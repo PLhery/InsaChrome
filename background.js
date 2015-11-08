@@ -251,9 +251,9 @@
 	function connectMoodle() {
 
 		//On se connecte à Moodle
-		$.get("http://cipcnet.insa-lyon.fr/moodle.195/login/index.php").done(function (response) { //On demande la page de connexion
+		$.get("http://moodle2.insa-lyon.fr/login/index.php?authCAS=CAS").done(function (response) { //On demande la page de connexion
 			
-			if($('<div>' + response + '</div>').find("#portal-personaltools li a:eq(1)").text() == "Déconnexion") //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
+			if($('<div>' + response + '</div>').find(".logininfo a:eq(1)").text() == "Déconnexion") //Si le bouton déconnexion est present sur le moodle (donc il est connecté)
 				chrome.storage.local.set({services: "Moodle"}); //On tick le service Moodle sur la popup
 			else
 				error("Une erreur inconnue (#010) est survenue lors de votre connexion au Moodle.");
