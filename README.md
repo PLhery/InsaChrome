@@ -7,7 +7,7 @@ LICENSE : Apache V2.
 ==========
 INSTALLATION : 
 - via le chrome webstore (pour avoir les mises à jour automatiques) https://chrome.google.com/webstore/detail/insachrome/lpdlefamgmjigoiioihnhikabnmmelgk
-- via le .crx à télecharger sur http://paul-louis.eu/InsaChrome/ puis à glisser dans chrome://extensions/
+- via le .crx à télecharger sur https://p-l.ninja/InsaChrome/ puis à glisser dans chrome://extensions/
 - télechargez les fichiers de github, allez dans chrome://extensions/, cliquez sur "mode développeur", "charger l'extension non empaquetée..", et selectionnez le dossier dans lequel vous avez les fichiers github
 
 ==========
