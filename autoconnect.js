@@ -7,7 +7,7 @@ chrome.runtime.sendMessage({method: "getInfos"}, function(response) { //on récu
 			connexionLien(element, "CIPC"); //On se connecte avec l'animation des liens
 		}
 
-		if(document.getElementsByClassName('logininfo').length && document.getElementsByClassName('logininfo')[0].innerHTML.indexOf("Non connecté.")>=0){ //Si il y a un lien "Non connecté." (moodle), on se connecte
+		if(document.getElementsByClassName('logininfo').length && (document.getElementsByClassName('logininfo')[0].innerHTML.indexOf("Non connecté.")>=0 || document.getElementsByClassName('logininfo')[0].innerHTML.indexOf("Vous êtes connecté anonymement")>=0)){ //Si il y a un lien "Non connecté." (moodle), on se connecte
 			var element = document.getElementsByClassName('logininfo')[0]; //L'élement sur lequel on va afficher "connexion..", c'est le fameux lien
 			connexionLien(element, "Moodle"); //On se connecte avec l'animation des liens
 		}
