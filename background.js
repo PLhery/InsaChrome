@@ -6,13 +6,15 @@
 		}
 		
 			if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined') //Si les options ne sont pas définies, on les met à leur valeur par défaut.
-				localStorage['insainviteauto']=true;
+				localStorage['insainviteauto']="true";
 			if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
-				localStorage['reseauinsaauto']=true;
+				localStorage['reseauinsaauto']="true";
 			if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
 				localStorage['formatemploi']="pdf";	
 			if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
-				localStorage['ajoutsemaine']=true;
+				localStorage['ajoutsemaine']="true";
+			if(!localStorage['notifnotes'] | localStorage['notifnotes'] == 'undefined')
+				localStorage['notifnotes']='false';
 	});
 
 
@@ -40,6 +42,7 @@
 		else  //Sinon on renvoie rien.
 		  sendResponse({});
 	});
+
 
 	function getInformations() { //Le but est de récupérer toutes les informations, et que si une ne va pas, on lance la connexion
 
@@ -69,6 +72,10 @@
 					
 					if(solde1 && solde2 && infonom && infoto && infomails && impressions) //Si on a toutes les infos (si c'etait le dernier qu'on attendait), on les envoie
 						envoiinfos(infomails, solde1, solde2, infonom, infoto, impressions, rang);
+						
+					//On recupere ensuite les notes.. (seulement si on l'a pas fait lors de la connection)
+					if(solde1 && solde2)
+						getNotes();
 						
 				}).fail(function() { //Si on a un problème, on lance la connexion
 							if(!connection) {
@@ -289,9 +296,10 @@
 
 		//On se connecte à Planète
 		$.get("https://planete.insa-lyon.fr/uPortal/f/u23l1s5/normal/render.uP").done(function (response) { //On demande la page de connexion
-			if($('<div>' + response + '</div>').find(".link-logout").first().text() == "Déconnexion") //Si le bouton déconnexion est present sur Planète (donc il est connecté)
+			if($('<div>' + response + '</div>').find(".link-logout").first().text() == "Déconnexion") { //Si le bouton déconnexion est present sur Planète (donc il est connecté)
 				chrome.storage.local.set({services: "Planete"}); //On tick le service Zimbra sur la popup
-			else
+				getNotes(); //On regarde s'il y a de nouvelles notes
+			} else
 				error("Une erreur inconnue (#015) est survenue lors de votre connexion à Planète.");
 			
 		}).fail(function(jqXHR) {
@@ -447,3 +455,61 @@
 			chrome.tabs.update(tab.id, {url: "http"+tab.url.substring(5)}); //On le transforme en http pour mieux gérer la connexion.
 	});
   
+
+  //EXPERIMENTAL
+  	function getNotes() {
+		
+		if(localStorage['notifnotes']=="true") { //Si l'option experimentale est activée
+			$.get('https://planete.insa-lyon.fr/uPortal/f/scol/normal/render.uP?pCt=scolarix-portlet.u22l1n13&pP_action=education', function (response) { //On charge planete, pour avoir notre lien vers les notes
+				var source = $('<div>' + response + '</div>');
+				
+				lien = source.find('ul.action-list>li:eq(0)>a').attr("href");
+				if(lien) { //Si on a notre lien vers les notes
+					$.get('https://planete.insa-lyon.fr/'+lien, function (response) { //On le regarde
+						if(response) {
+							var source = $('<div>' + response + '</div>');
+							
+							tableauNotesTemp = []; //Le tableau dans lequel on va pusher nos notes
+							var currentModule = ''; //Le module dans lequel on est
+							source.find(".portlet-table tbody tr").each(function (i, elem) { //Pour chaque ligne du tableau
+								var cells = $(this).children('td');
+								if (cells.length == 4) //si y'a 4 cellules, c'est que c'est un nom de module
+									currentModule = $(cells.get(1)).text().match(/([a-z].+[a-z])/i)[1];
+
+								if (cells.length == 6) { //si y'en a 6, c'est une rangée de notes
+									var absent = ($(cells.get(2)).text() == "Oui") ? " (ABSENT)" : "";
+									tableauNotesTemp.push(currentModule + " | " + $(cells.get(0)).text() + absent + " : " + $(cells.get(3)).text().substring(11) + " ( moyenne : " + $(cells.get(4)).text() + " )");
+								}
+							});
+							
+							
+							
+							if(localStorage['tableauNotes'] && localStorage['tableauNotes'].length>0) { //Si les notes ont deja été vérifé un jour
+								var tableauNotes=JSON.parse(localStorage['tableauNotes']);
+								
+								//On compare les anciennes et nouvelles données
+								tableauNotesTemp.forEach(function(el) { //Pour chaque nouvelle donnée
+									if ($.inArray(el, tableauNotes) == -1) { //Si elle n'etait pas dans les anciennes données
+									
+										chrome.notifications.create(null, { //On affiche une notification
+										  type: "basic",
+										  title: "Tu as une nouvelle note !", //titre
+										  message: el, //contenu
+										  iconUrl: 'icon128.png' //image
+										}, function(notificationId) {
+											chrome.notifications.onClicked.addListener(function() { //Quand on clique dessus, ca ouvre un onglet avec les notes
+												chrome.tabs.create({ url: 'https://planete.insa-lyon.fr/'+lien });
+											});
+										});
+										
+									}
+								});
+							}
+							localStorage['tableauNotes'] = JSON.stringify(tableauNotesTemp); //On sauvegarde nos nouvelles notes.
+							
+						}
+					});
+				}
+			});
+		}
+	}

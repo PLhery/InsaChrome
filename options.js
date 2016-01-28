@@ -4,13 +4,15 @@ if(!localStorage['nom'] | localStorage['nom'] == 'undefined') //On initialise le
 if(!localStorage['passe'] | localStorage['passe'] == 'undefined')
 	localStorage['passe']="";
 if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined')
-	localStorage['insainviteauto']=true;
+	localStorage['insainviteauto']="true";
 if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
-	localStorage['reseauinsaauto']=true;
+	localStorage['reseauinsaauto']="true";
 if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
 	localStorage['formatemploi']="pdf";
 if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
-	localStorage['ajoutsemaine']=true;
+	localStorage['ajoutsemaine']="true";
+if(!localStorage['notifnotes'] | localStorage['notifnotes'] == 'undefined')
+	localStorage['notifnotes']='false';
 
 document.getElementById('nom').value=localStorage['nom']; //On remplit les cases avec les valeurs
 document.getElementById('passe').value=CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8);
@@ -18,6 +20,8 @@ document.getElementById('insainviteauto').checked=(localStorage['insainviteauto'
 document.getElementById('reseauinsaauto').checked=(localStorage['reseauinsaauto']=="true");
 document.getElementById('formatemploi').value=localStorage['formatemploi'];
 document.getElementById('ajoutsemaine').checked=(localStorage['ajoutsemaine']=="true");
+document.getElementById('notifnotes').checked=(localStorage['notifnotes']=="true");
+
 
 document.getElementById('nom').onkeyup=enregistrer; //Si on fait une action sur les formulaires, enregistrer les modifications
 document.getElementById('passe').onkeyup=enregistrer;
@@ -25,7 +29,7 @@ document.getElementById('insainviteauto').onclick=enregistrer;
 document.getElementById('reseauinsaauto').onclick=enregistrer;
 document.getElementById('formatemploi').onchange=enregistrer;
 document.getElementById('ajoutsemaine').onchange=enregistrer;
-		
+document.getElementById('notifnotes').onchange=enregistrer;	
 		
 function enregistrer()
 	{
@@ -36,6 +40,7 @@ function enregistrer()
 		localStorage['reseauinsaauto']=document.getElementById('reseauinsaauto').checked;
 		localStorage['formatemploi']=document.getElementById('formatemploi').value;
 		localStorage['ajoutsemaine']=document.getElementById('ajoutsemaine').checked;
+		localStorage['notifnotes']=document.getElementById('notifnotes').checked;
 	}
 var infst = 0;
 

@@ -27,6 +27,9 @@
       "keyword": "i"
    },
    "options_page": "options.html",
-   "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs" ],
-   "version": "3.3.1"
+   "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs", "notifications" ],
+   "web_accessible_resources": [
+    "icon128.png"
+  ],
+   "version": "3.3.2"
 }
