@@ -201,10 +201,10 @@
 				//On vérifie si on est bien sur la bonne page
 				 chrome.cookies.get({"url": "https://login.insa-lyon.fr/cas/", "name": "JSESSIONID" }, function(cookie) { //on lit le cookie jsessionid
 				
-					$.post( "https://login.insa-lyon.fr/cas/login;"+cookie.value, { username: localStorage['nom'], password: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), lt : $('<div>' + response + '</div>').find("input[name='lt']").val(), execution: "e1s1", _eventId: "submit" }) //On envoie les infos de connection
+					$.post( "https://login.insa-lyon.fr/cas/login;"+cookie.value, { username: localStorage['nom'], password: CryptoJS.AES.decrypt(localStorage['passe'], "1NS4"+localStorage['s']).toString(CryptoJS.enc.Utf8), lt : $('<div>' + response + '</div>').find("input[name='lt']").val(), execution: $('<div>' + response + '</div>').find("input[name='execution']").val(), _eventId: "submit" }) //On envoie les infos de connection
 					.done(function( data ) { //On vérifie si on est bien connecté
 					
-						if($('<div>' + data + '</div>').find("p").first().text() == "Vous vous êtes authentifié(e) auprès du Service Central d'Authentification.") { //Si on est bien connecté
+						if($('<div>' + data + '</div>').find("h2").first().text() == "Connexion réussie") { //Si on est bien connecté
 						
 										chrome.storage.local.set({services: "CAS"}); //On tick le service CAS sur la popup
 										connectMoodle();//On se connecte à Moodle

@@ -59,10 +59,10 @@
 					document.getElementById('mails').innerHTML=changes[key].newValue[0]; //On les inscrit dans les cases
 					document.getElementById('solde').innerHTML=changes[key].newValue[1];
 					document.getElementById('soldeforfait').innerHTML=changes[key].newValue[2];
-					if(changes[key].newValue[6] && !isNaN(changes[key].newValue[6]) && $("#afficherPokemon2").length>0) //Si on a le rang
+					/*if(changes[key].newValue[6] && !isNaN(changes[key].newValue[6]) && $("#afficherPokemon2").length>0) //Si on a le rang
 						document.getElementById('photo').src= "http://pokeapi.co/media/img/"+changes[key].newValue[6]+".png"; //On affiche le pokemon
 					else
-						document.getElementById('photo').src= "http://cipcnet.insa-lyon.fr/scol/tr_eleves/"+changes[key].newValue[3]+".jpg";
+						document.getElementById('photo').src= "http://cipcnet.insa-lyon.fr/scol/tr_eleves/"+changes[key].newValue[3]+".jpg";*/
 					document.getElementById('nom').innerHTML=changes[key].newValue[4];
 					//document.getElementById('admission').innerHTML=changes[key].newValue[5];
 					document.getElementById('impressions').innerHTML=changes[key].newValue[5];

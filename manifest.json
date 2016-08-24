@@ -1,6 +1,6 @@
-{
+﻿{
    "background": {
-      "scripts": [ "jquery-2.1.1.min.js", "aes.js", "background.js" ],
+      "scripts": [ "jquery-3.1.0.min.js", "aes.js", "background.js" ],
 	  "persistent": false
    },
    "browser_action": {
@@ -31,5 +31,5 @@
    "web_accessible_resources": [
     "icon128.png"
   ],
-   "version": "3.3.3"
+   "version": "3.3.4"
 }
