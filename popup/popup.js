@@ -78,7 +78,7 @@
 				}
 			}
       });
-$("#message_du_jour").load( "http://p-l.ninja/InsaChrome/message_du_jour.php");
+$("#message_du_jour").load( "https://projects.plhery.com/InsaChrome/message_du_jour.php");
 let circAnimI=0;
 let circAnimColors=["#e91e63","#00bcd4", "#8bc34a","#ffc107","#009688","#ff9800"];
 function circularAnimation() { //adapté de http://jsfiddle.net/F9pLC/
