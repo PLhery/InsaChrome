@@ -2,7 +2,7 @@
 <html>
 	<head>
 		
-		<link rel="stylesheet" type="text/css" href="fontello/css/fontello-embedded.css">
+		<link rel="stylesheet" type="text/css" href="../fontello/css/fontello-embedded.css">
 		<link rel="stylesheet" type="text/css" href="popup.css">
 
 	</head>
@@ -10,32 +10,29 @@
 	<body>
 		<div id="informations" style="display:none;">
 			<p class="infos">Mails non lus :<br/><span class="reco-balance" id="mails">... / ...</span></p><br/>
-			<p class="infos">Quota d'impressions :<br/><span class="reco-balance" id="impressions">... / 200</span></p><br/>
-			<p class="infos">Solde :<br/><span class="reco-balance"  id="solde">... €</span></p>
-			<p class="infos">Solde forfait :<br/><span class="reco-balance"  id="soldeforfait">... €</span></p>
+			<!-- class="infos">Quota d'impressions :<br/><span class="reco-balance" id="impressions">... / 200</span></p><br/-->
+			<p class="infos">Solde :<br/><span class="reco-balance"  id="solde">... Â€</span></p>
+			<p class="infos">Solde forfait :<br/><span class="reco-balance"  id="soldeforfait">... Â€</span></p>
 			<div id="message_du_jour" class="infos"></div><br/>
 			<!--p class = "infos"><span class="reco-balance" id="admission" style="background-color:green">...???</span></p><br/     (admission)-->
-			<p class="infos">Connecté en tant que :</p>
+			<p class="infos">ConnectÃ© en tant que :</p>
 			<table class="infos">
 				<tr>
-				  <!--td><img id="photo" style="width:45px;"/></td-->
+				  <td><img id="photo" style="width:45px;"/></td>
 				  <td class="infos" id="nom">...</td> 
 				</tr>
 			</table>
 		</div>	
 		
 		<div id="services" style="display:none;">
-			<p class="connect" id = "connect">Connexion à..</p>
+			<p class="connect" id = "connect">Connexion Ã ..</p>
 		
 			<br/>
 			<input type="checkbox" checked disabled id="chInvite" />
-			<label>Insa-Invité</label>
+			<label>Insa-InvitÃ©</label>
 			<br/>
 			<input type="checkbox" id="chCAS" />
 			<label>Insa CAS</label>
-			<br/>
-			<input type="checkbox" id="chCIPC" />
-			<label>CIPCNet</label>
 			<br/>
 			<input type="checkbox" id="chMoodle" />
 			<label>Moodle</label>
@@ -44,7 +41,7 @@
 			<label>Zimbra</label>
 			<br/>
 			<input type="checkbox" id="chPlanete" />
-			<label>Planète</label>
+			<label>PlanÃ¨te</label>
 		</div>
 		<div id="ok" style="display:none;">
 			&#59392;
@@ -57,7 +54,7 @@
 				<p id="message"></p>
 			</div>
 		</div>
-		<script src="jquery-2.1.1.min.js"></script>
+		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="popup.js">	</script>
 		
 	</body>

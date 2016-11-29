@@ -1,14 +1,14 @@
 		@font-face {
 		  font-family: 'Roboto';
 		  font-style: normal;
-		  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
+		  src: local('Roboto Thin'), local('Roboto-Thin'), url(../fonts/roboto.woff) format('woff');
 		}
 
 		@font-face {
 		  font-family: 'Montserrat';
 		  font-style: normal;
 		  font-weight: 400;
-		  src: local('Montserrat-Regular'), url(Montserrat.woff) format('woff');
+		  src: local('Montserrat-Regular'), url(../fonts/Montserrat.woff) format('woff');
 		}
 
 		body {
@@ -87,7 +87,7 @@
 			  vertical-align: middle; 
 			  text-align: center; 
 		}
-		/*checkbox animés - inspiré de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
+		/*checkbox animï¿½s - inspirï¿½ de http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts*/
 
 		label {
 			position: relative;

@@ -6,7 +6,7 @@
 		@font-face {
 		  font-family: 'Roboto';
 		  font-style: normal;
-		  src: local('Roboto Thin'), local('Roboto-Thin'), url(roboto.woff) format('woff');
+		  src: url(../fonts/roboto.woff) format('woff');
 		}
 
 		body {
@@ -53,7 +53,7 @@
 		<p style="float:right;margin:0"><a href="#" id="plusinfos">Indications sur les options</a></p>
 		</div>
 		<div style="clear: both;"></div>
-		<p class="infos">Pour pouvoir vous connecter à Insa-invité, cipcnet et tout autre site INSA, il me faut vos identifiants.<br/> Ne vous inquiétez-pas, ils sont stockés sur votre ordinateur, et ne sont transmis qu'aux sites INSA</p>
+		<p class="infos">Pour pouvoir vous connecter Ã  Insa-invitÃ©, cipcnet et tout autre site INSA, il me faut vos identifiants.<br/> Ne vous inquiÃ©tez-pas, ils sont stockÃ©s sur votre ordinateur, et ne sont transmis qu'aux sites INSA</p>
 		<br/>
 		
 		<hr style="width:300px;" class="infos"/>
@@ -61,27 +61,27 @@
 		<label for="passe">Mot de passe :</label> <input type="password" name="passe" id="passe"/><br/>
 		<hr style="width:300px;" class="infos"/>
 		<br/>
-		<p class="infos">Ensuite, sachez que, dès que la page de connexion d'INSA-invité apparaîtra, (et que vous aurez passé l'éventuelle erreur), le plugin remplira tout seul le formulaire.<br/>
-		De plus, si aucune connexion n'a été faite par le plugin depuis deux heures, il se reconnectera aux sites INSA.<br/>
-		Vous pouvez désactiver l'une de ces fonctions ici :</p>
+		<p class="infos">Ensuite, sachez que, dÃ¨s que la page de connexion d'INSA-invitÃ© apparaÃ®tra, (et que vous aurez passÃ© l'Ã©ventuelle erreur), le plugin remplira tout seul le formulaire.<br/>
+		De plus, si aucune connexion n'a Ã©tÃ© faite par le plugin depuis deux heures, il se reconnectera aux sites INSA.<br/>
+		Vous pouvez dÃ©sactiver l'une de ces fonctions ici :</p>
 		<br/>
 		<hr style="width:300px;" class="infos"/>
-		<input type="checkbox" name="insainviteauto" id="insainviteauto"><label for="insainviteauto">Connexion automatique à insa-invité</label><br/>
+		<input type="checkbox" name="insainviteauto" id="insainviteauto"><label for="insainviteauto">Connexion automatique Ã  insa-invitÃ©</label><br/>
 		<input type="checkbox" name="reseauinsaauto" id="reseauinsaauto"><label for="reseauinsaauto">Connexion automatique aux sites insa</label></input><br/>
 		<hr style="width:300px;" class="infos"/>
 		<br/>
-		<p class="infos">Finalement, sachez qu'en tapant dans la barre d'adresse "i", puis espace, puis une lettre, une liste de choix vous sera proposé. Parmis elle l'emploi du temps. Essayez-donc les deux formats possibles.</p>
+		<p class="infos">Finalement, sachez qu'en tapant dans la barre d'adresse "i", puis espace, puis une lettre, une liste de choix vous sera proposÃ©. Parmis elle l'emploi du temps. Essayez-donc les deux formats possibles.</p>
 		<br/>
 		<hr style="width:300px;" class="infos"/>
 		<label for="formatemploi">Format de l'emploi du temps :</label><select name="formatemploi" id="formatemploi"><option value="html">Normal (HTML)</option> <option value="pdf" selected>PDF</option></select><br/>
 		<hr style="width:300px;" class="infos"/>
-		<p class="infos">Le week-end, CIPC selectionne la semaine qui vient de passer. En cochant la case suivante, taper "i emploi du temps" charge la semaine d'après.</p>
+		<p class="infos">Le week-end, CIPC selectionne la semaine qui vient de passer. En cochant la case suivante, taper "i emploi du temps" charge la semaine d'aprÃ¨s.</p>
 		<hr style="width:300px;" class="infos"/>
 		<input type="checkbox" name="ajoutsemaine" id="ajoutsemaine"><label for="ajoutsemaine">Le week-end, charger l'emploi du temps de la semaine suivante.</label></input><br/>
 		<hr style="width:300px;" class="infos"/>
 		<h4 class="infos"><b>[EXPERIMENTAL]</b></h4>
 		<p class="infos">
-			<input type="checkbox" name="notifnotes" id="notifnotes"><label for="notifnotes">  vérifier s'il y a de nouvelles notes à chaque connexion</label><br/>
+			<input type="checkbox" name="notifnotes" id="notifnotes"><label for="notifnotes">  vÃ©rifier s'il y a de nouvelles notes Ã  chaque connexion</label><br/>
 		</p>
 		<br/>
 		<img src="batman.gif" style="width:100px;margin:0 auto;" class="infos"/>
@@ -89,10 +89,9 @@
 	</div>
 
 	
-	<script type='text/javascript' src='jquery-2.1.1.min.js'></script>
-	<script type='text/javascript' src='aes.js'></script>
-		<script src="options.js">
-	</script>
+	<script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
+	<script type='text/javascript' src='../bower_components/cryptojslib/rollups/aes.js'></script>
+	<script src="options.js"></script>
 	
 </body>
 </html>

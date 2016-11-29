@@ -1,35 +1,50 @@
 ﻿{
    "background": {
-      "scripts": [ "jquery-3.1.0.min.js", "aes.js", "background.js" ],
+      "scripts": [
+         "bower_components/jquery/dist/jquery.min.js",
+         "bower_components/cryptojslib/rollups/aes.js",
+         "bower_components/axios/dist/axios.min.js",
+         "background/connect.js",
+         "background/information.js",
+         "background/omnibox.js",
+         "background/background.js"
+      ],
 	  "persistent": false
    },
    "browser_action": {
-      "default_icon": "icon48.png",
-      "default_popup": "popup.html"
+      "default_icon": "icons/icon48.png",
+      "default_popup": "popup/popup.html"
    },
    "content_scripts": [ {
       "all_frames": true,
-      "js": [ "insainvite.js" ],
-      "matches": [ "*://securelogin.arubanetworks.com/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/guests/centre.htm", "*://*.insa-lyon.fr/upload/custom/CP_FILAIRE/centre.htm" ]
+      "js": [ "content_scripts/insainvite.js" ],
+      "matches": [
+         "*://securelogin.arubanetworks.com/upload/custom/guests/centre.htm",
+         "*://*.insa-lyon.fr/upload/custom/CP_FILAIRE/centre.htm"
+      ]
    }, {
-      "js": [ "autoconnect.js" ],
+      "js": [ "content_scripts/autoconnect.js" ],
       "matches": [ "*://*.insa-lyon.fr/*" ]
    }],
    "description": "Connectez-vous automatiquement au réseau wifi insa-invité, à cipcnet et au réseau insa, en un clic.",
    "icons": {
-      "128": "icon128.png",
-      "16": "icon16.png",
-      "48": "icon48.png"
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
    },
    "manifest_version": 2,
    "name": "InsaChrome",
    "omnibox": {
       "keyword": "i"
    },
-   "options_page": "options.html",
-   "permissions": [ "http://securelogin.arubanetworks.com/*", "*://*.insa-lyon.fr/*", "cookies", "storage", "tabs", "notifications" ],
+   "options_page": "options/options.html",
+   "permissions": [
+      "http://securelogin.arubanetworks.com/*",
+      "*://*.insa-lyon.fr/*",
+      "cookies", "storage", "tabs", "notifications"
+   ],
    "web_accessible_resources": [
-    "icon128.png"
+    "icon/icon128.png"
   ],
-   "version": "3.3.4"
+   "version": "3.4"
 }

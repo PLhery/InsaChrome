@@ -1,17 +1,17 @@
 
-if(!localStorage['nom'] | localStorage['nom'] == 'undefined') //On initialise les options si rien n'est rentré
+if(!localStorage['nom']) //On initialise les options si rien n'est rentré
 	localStorage['nom']="";
-if(!localStorage['passe'] | localStorage['passe'] == 'undefined')
+if(!localStorage['passe'])
 	localStorage['passe']="";
-if(!localStorage['insainviteauto'] | localStorage['insainviteauto'] == 'undefined')
+if(!localStorage['insainviteauto'])
 	localStorage['insainviteauto']="true";
-if(!localStorage['reseauinsaauto'] | localStorage['reseauinsaauto'] == 'undefined')
+if(!localStorage['reseauinsaauto'])
 	localStorage['reseauinsaauto']="true";
-if(!localStorage['formatemploi'] | localStorage['formatemploi'] == 'undefined')
+if(!localStorage['formatemploi'])
 	localStorage['formatemploi']="pdf";
-if(!localStorage['ajoutsemaine'] | localStorage['ajoutsemaine'] == 'undefined')
+if(!localStorage['ajoutsemaine'])
 	localStorage['ajoutsemaine']="true";
-if(!localStorage['notifnotes'] | localStorage['notifnotes'] == 'undefined')
+if(!localStorage['notifnotes'])
 	localStorage['notifnotes']='false';
 
 document.getElementById('nom').value=localStorage['nom']; //On remplit les cases avec les valeurs

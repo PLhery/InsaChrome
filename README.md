@@ -14,9 +14,9 @@ INSTALLATION :
 
 DESCRIPTION : 
 
-Connectez-vous automatiquement au réseau wifi insa-invité, à cipcnet et au réseau insa, en un clic.
+Connectez-vous automatiquement au réseau wifi insa-invité et au réseau insa, en un clic.
 
-Cette extension vous connecte automatiquement (si vous allez sur un site insa, ou tombez sur une page de login) à insa-invité, cipcnet, moodle, zimbra, planete, et au réseau insa. Un bouton d'action (masquable) vous permet de vous connecter automatiquement si ce n'est pas fait, ainsi que de consulter le solde de sa carte, le nombre de mails non lu, et la confirmation de connexion.
+Cette extension vous connecte automatiquement (si vous allez sur un site insa, ou tombez sur une page de login) à insa-invité, moodle, zimbra, planete, et au réseau insa. Un bouton d'action (masquable) vous permet de vous connecter automatiquement si ce n'est pas fait, ainsi que de consulter le solde de sa carte, le nombre de mails non lu, et la confirmation de connexion.
 
 En tapant dans la barre d'adresse "i" puis espace, puis un première lettre, vous aurez accès à plein de raccourcis : votre emploi du temps, vos mails, rechercher quelqu'un parmis les etudiants, parmis les cours moodle...
 
@@ -30,10 +30,8 @@ JE NE CONNAIS PAS TROP LES EXTENSIONS CHROME, QUE LIRE DANS LE CODE ?
 
 Le fichier manifest.json dit à chaque fichier quoi faire.
 
-Ainsi, "background" est une page qui tourne en tâche de fond. Enfin, ce n'est plus un background mais une "event page", un amélioration (récente) du background, qui ne tourne plus à 100% en tache de fond. C'est le gros du code.
-On charge pour ce background les librairies jquery (qui permet de faire pas mal de choses en js) et une librairie de cryptage AES (pour le mot de passe, bien que peu utile), puis le background.js, le gros du code.
-
-En fait, ce background.js va recevoir pleins de requetes des differents endroits (la popup en haut à droite qui va lui demander de se connecter, ce qu'il va faire en envoyant l'avancée de celle-ci, ou quand on fait "i emploi du temps", les suggestions/le traitement sont faites par le background). Tout est commenté.
+Ainsi, "background.js" gère les différents évenements.
+Il va recevoir pleins de requetes des differents endroits (la popup en haut à droite qui va lui demander de se connecter, ce qu'il va faire en envoyant l'avancée de celle-ci, ou quand on fait "i emploi du temps", les suggestions/le traitement sont faites par le background).
 
 Ensuite, "browser_action" est le petit bouton en haut à droite, d'icone "icon48.png". Appuyer dessus ouvre popup.html qui lui même ouvre popup.js. Popup.js est le script qui va echanger avec le background pour afficher ou il en est/les infos/inclure les petites animations.
 
