@@ -34,7 +34,7 @@ class InfoInsa {
         });
     }
     static getNom() {
-        return axios.get('https://planete.insa-lyon.fr/uPortal/f/scol/normal/render.uP').then((response) => {
+        return axios.get('https://planete.insa-lyon.fr/uPortal/f/for/normal/render.uP').then((response) => {
             const $response = $(response.data);
             $response.find("img").removeAttr("src");
 
